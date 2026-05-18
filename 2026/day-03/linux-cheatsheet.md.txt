@@ -1,0 +1,74 @@
+# Linux Commands Cheat Sheet 🚀
+
+# Process Management Commands
+
+| Command | Usage |
+|---|---|
+| `ps aux` | Show all running processes |
+| `top` | Display real-time system processes |
+| `htop` | Interactive process viewer |
+| `kill PID` | Terminate a process |
+| `kill -9 PID` | Force kill a process |
+| `jobs` | Show background jobs |
+| `bg` | Run process in background |
+| `fg` | Bring background process to foreground |
+
+---
+
+# File System Commands
+
+| Command | Usage |
+|---|---|
+| `pwd` | Show current directory |
+| `ls -la` | List files with details |
+| `cd` | Change directory |
+| `mkdir` | Create new directory |
+| `touch` | Create empty file |
+| `cp` | Copy files/directories |
+| `mv` | Move or rename files |
+| `rm -rf` | Remove files/directories |
+| `cat` | View file content |
+| `nano` | Edit file in terminal |
+| `find` | Search files/directories |
+| `chmod` | Change file permissions |
+| `df -h` | Show disk space usage |
+| `du -sh` | Show directory size |
+
+---
+
+# Networking Commands
+
+| Command | Usage |
+|---|---|
+| `ping google.com` | Check network connectivity |
+| `ip addr` | Show IP address information |
+| `curl website.com` | Fetch website response |
+| `dig google.com` | DNS lookup |
+| `netstat -tulnp` | Show listening ports |
+| `ss -tulnp` | Display active sockets |
+| `wget URL` | Download files from internet |
+
+---
+
+# Log & Service Commands
+
+| Command | Usage |
+|---|---|
+| `journalctl -xe` | View system logs |
+| `tail -f logfile` | Monitor logs in real time |
+| `systemctl status nginx` | Check service status |
+| `systemctl restart nginx` | Restart service |
+
+---
+
+# Why These Commands Matter in DevOps
+
+These commands help DevOps engineers to:
+
+- Debug production issues
+- Monitor processes and services
+- Troubleshoot network problems
+- Analyze logs quickly
+- Manage Linux systems efficiently
+
+#90DaysOfDevOps 🚀
