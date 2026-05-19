@@ -1,0 +1,108 @@
+# Linux Practice – Processes and Services 🚀
+
+# Process Checks
+
+## 1. Check Running Processes
+
+```bash
+ps aux | head
+```
+
+Output:
+```bash
+USER       PID %CPU %MEM COMMAND
+root         1  0.0  0.1 systemd
+root       500  0.1  0.3 snapd
+user      1200  0.2  0.5 code
+```
+
+---
+
+## 2. Monitor Live Processes
+
+```bash
+top
+```
+
+Observed:
+- CPU and memory usage
+- Running and sleeping processes
+- System load information
+
+---
+
+# Service Checks
+
+## 3. Check Docker Service Status
+
+```bash
+systemctl status docker
+```
+
+Output:
+```bash
+Active: active (running)
+Loaded: loaded (/lib/systemd/system/docker.service)
+```
+
+---
+
+## 4. List Running Services
+
+```bash
+systemctl list-units --type=service
+```
+
+Observed:
+- docker.service
+- ssh.service
+- cron.service
+
+---
+
+# Log Checks
+
+## 5. View Docker Service Logs
+
+```bash
+journalctl -u docker
+```
+
+Observed:
+- Docker daemon startup logs
+- Service initialization logs
+
+---
+
+## 6. Monitor System Logs
+
+```bash
+tail -n 50 /var/log/syslog
+```
+
+Observed:
+- System events
+- Service activity logs
+- Background process logs
+
+---
+
+# Mini Troubleshooting Flow
+
+Issue:
+Docker service was not responding properly.
+
+Steps Taken:
+1. Checked process using `ps aux`
+2. Verified service status using `systemctl status docker`
+3. Reviewed logs using `journalctl -u docker`
+4. Restarted service using:
+
+```bash
+systemctl restart docker
+```
+
+Result:
+Docker service started successfully.
+
+#90DaysOfDevOps 🚀
