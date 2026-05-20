@@ -1,0 +1,191 @@
+# Linux Troubleshooting Runbook 🚀
+
+# Target Service / Process
+
+Target Service: Docker
+
+Purpose:
+Check system health, inspect logs, and troubleshoot Docker service behavior.
+
+---
+
+# Environment Basics
+
+## 1. Check Kernel Information
+
+```bash
+uname -a
+```
+
+Observed:
+- Verified Linux kernel version and system architecture.
+
+---
+
+## 2. Check OS Information
+
+```bash
+cat /etc/os-release
+```
+
+Observed:
+- Confirmed Ubuntu Linux distribution details.
+
+---
+
+# Filesystem Sanity Checks
+
+## 3. Create Temporary Directory
+
+```bash
+mkdir /tmp/runbook-demo
+```
+
+Observed:
+- Temporary troubleshooting directory created successfully.
+
+---
+
+## 4. Copy Hosts File
+
+```bash
+cp /etc/hosts /tmp/runbook-demo/hosts-copy
+ls -l /tmp/runbook-demo
+```
+
+Observed:
+- File copied successfully and permissions verified.
+
+---
+
+# Snapshot: CPU & Memory
+
+## 5. Monitor System Usage
+
+```bash
+top
+```
+
+Observed:
+- CPU usage stable under normal load.
+- No abnormal resource spikes detected.
+
+---
+
+## 6. Check Memory Usage
+
+```bash
+free -h
+```
+
+Observed:
+- Available memory was sufficient.
+- No memory pressure observed.
+
+---
+
+# Snapshot: Disk & IO
+
+## 7. Check Disk Usage
+
+```bash
+df -h
+```
+
+Observed:
+- Root partition had enough free space.
+- No disk saturation issues found.
+
+---
+
+## 8. Check Log Directory Size
+
+```bash
+du -sh /var/log
+```
+
+Observed:
+- Log directory size within acceptable range.
+
+---
+
+# Snapshot: Network
+
+## 9. Check Open Ports
+
+```bash
+ss -tulpn
+```
+
+Observed:
+- Docker service listening on expected ports.
+
+---
+
+## 10. Test Network Connectivity
+
+```bash
+curl -I https://google.com
+```
+
+Observed:
+- Internet connectivity working correctly.
+
+---
+
+# Logs Reviewed
+
+## 11. Review Docker Logs
+
+```bash
+journalctl -u docker -n 50
+```
+
+Observed:
+- Docker daemon started successfully.
+- No critical errors found in recent logs.
+
+---
+
+## 12. Review System Logs
+
+```bash
+tail -n 50 /var/log/syslog
+```
+
+Observed:
+- System logs showed normal background activity.
+- No major failures detected.
+
+---
+
+# Quick Findings
+
+- Docker service running normally
+- CPU and memory usage stable
+- Disk usage healthy
+- Network connectivity working
+- No critical errors in logs
+
+---
+
+# If This Worsens
+
+## Next Steps
+
+1. Restart Docker service using:
+```bash
+systemctl restart docker
+```
+
+2. Increase log investigation and monitor live logs:
+```bash
+journalctl -fu docker
+```
+
+3. Collect deeper debugging information using:
+```bash
+strace -p <PID>
+```
+
+#90DaysOfDevOps 🚀
