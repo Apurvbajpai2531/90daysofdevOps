@@ -1,0 +1,54 @@
+# File IO Practice 🚀
+
+## Create File
+
+```bash
+touch notes.txt
+```
+
+Created an empty file named `notes.txt`.
+
+---
+
+## Write Lines into File
+
+```bash
+echo "Linux is powerful" > notes.txt
+echo "DevOps uses Linux daily" >> notes.txt
+echo "Learning file handling commands" | tee -a notes.txt
+```
+
+Added 3 lines into the file using `>`, `>>`, and `tee`.
+
+---
+
+## Read Full File
+
+```bash
+cat notes.txt
+```
+
+Output:
+```text
+Linux is powerful
+DevOps uses Linux daily
+Learning file handling commands
+```
+
+---
+
+## Read First 2 Lines
+
+```bash
+head -n 2 notes.txt
+```
+
+---
+
+## Read Last 2 Lines
+
+```bash
+tail -n 2 notes.txt
+```
+
+#90DaysOfDevOps 🚀
