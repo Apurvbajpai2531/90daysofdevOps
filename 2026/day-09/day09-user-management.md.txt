@@ -1,0 +1,180 @@
+# Day 09 – Linux User & Group Management Challenge 🚀
+
+# Users & Groups Created
+
+## Users
+- tokyo
+- berlin
+- professor
+- nairobi
+
+## Groups
+- developers
+- admins
+- project-team
+
+---
+
+# Group Assignments
+
+| User | Groups |
+|---|---|
+| tokyo | developers, project-team |
+| berlin | developers, admins |
+| professor | admins |
+| nairobi | project-team |
+
+---
+
+# Directories Created
+
+| Directory | Group Owner | Permissions |
+|---|---|---|
+| /opt/dev-project | developers | 775 |
+| /opt/team-workspace | project-team | 775 |
+
+---
+
+# Commands Used
+
+## Create Users
+
+```bash
+sudo useradd -m tokyo
+sudo useradd -m berlin
+sudo useradd -m professor
+sudo useradd -m nairobi
+```
+
+---
+
+## Set Passwords
+
+```bash
+sudo passwd tokyo
+sudo passwd berlin
+sudo passwd professor
+sudo passwd nairobi
+```
+
+---
+
+## Verify Users
+
+```bash
+cat /etc/passwd
+ls /home
+```
+
+---
+
+## Create Groups
+
+```bash
+sudo groupadd developers
+sudo groupadd admins
+sudo groupadd project-team
+```
+
+---
+
+## Verify Groups
+
+```bash
+cat /etc/group
+```
+
+---
+
+## Assign Users to Groups
+
+```bash
+sudo usermod -aG developers tokyo
+sudo usermod -aG developers,admins berlin
+sudo usermod -aG admins professor
+sudo usermod -aG project-team nairobi
+sudo usermod -aG project-team tokyo
+```
+
+---
+
+## Verify Group Membership
+
+```bash
+groups tokyo
+groups berlin
+groups professor
+groups nairobi
+```
+
+---
+
+# Shared Directory Setup
+
+## Create Directory
+
+```bash
+sudo mkdir /opt/dev-project
+```
+
+---
+
+## Set Group Ownership
+
+```bash
+sudo chgrp developers /opt/dev-project
+```
+
+---
+
+## Set Permissions
+
+```bash
+sudo chmod 775 /opt/dev-project
+```
+
+---
+
+## Test File Creation
+
+```bash
+sudo -u tokyo touch /opt/dev-project/tokyo-file.txt
+sudo -u berlin touch /opt/dev-project/berlin-file.txt
+```
+
+---
+
+# Team Workspace Setup
+
+## Create Workspace Directory
+
+```bash
+sudo mkdir /opt/team-workspace
+```
+
+---
+
+## Set Group & Permissions
+
+```bash
+sudo chgrp project-team /opt/team-workspace
+sudo chmod 775 /opt/team-workspace
+```
+
+---
+
+## Test Workspace Access
+
+```bash
+sudo -u nairobi touch /opt/team-workspace/nairobi-file.txt
+```
+
+---
+
+# What I Learned
+
+- How to create and manage Linux users and groups
+- How group permissions control shared access
+- How to configure collaborative workspaces using permissions
+
+#90DaysOfDevOps 🚀
