@@ -1,0 +1,182 @@
+# Day 10 – File Permissions & File Operations Challenge 🚀
+
+# Files Created
+
+- devops.txt
+- notes.txt
+- script.sh
+- project/
+
+---
+
+# Commands Used
+
+## Create Files
+
+```bash
+touch devops.txt
+```
+
+```bash
+echo "Linux file operations practice" > notes.txt
+```
+
+```bash
+vim script.sh
+```
+
+Content inside `script.sh`:
+
+```bash
+echo "Hello DevOps"
+```
+
+---
+
+## Verify File Permissions
+
+```bash
+ls -l
+```
+
+---
+
+# Read Files
+
+## Read notes.txt
+
+```bash
+cat notes.txt
+```
+
+---
+
+## Open script.sh in Read-Only Mode
+
+```bash
+vim -R script.sh
+```
+
+---
+
+## First 5 Lines of /etc/passwd
+
+```bash
+head -n 5 /etc/passwd
+```
+
+---
+
+## Last 5 Lines of /etc/passwd
+
+```bash
+tail -n 5 /etc/passwd
+```
+
+---
+
+# Understanding Permissions
+
+Permission Format:
+
+```text
+rwxrwxrwx
+```
+
+- r = read (4)
+- w = write (2)
+- x = execute (1)
+
+Checked permissions using:
+
+```bash
+ls -l devops.txt notes.txt script.sh
+```
+
+Observed:
+- Owner had read/write access
+- Group and others had limited permissions
+- `script.sh` was not executable initially
+
+---
+
+# Modify Permissions
+
+## Make script.sh Executable
+
+```bash
+chmod +x script.sh
+```
+
+Run script:
+
+```bash
+./script.sh
+```
+
+---
+
+## Make devops.txt Read-Only
+
+```bash
+chmod a-w devops.txt
+```
+
+---
+
+## Set notes.txt Permission to 640
+
+```bash
+chmod 640 notes.txt
+```
+
+---
+
+## Create Directory with 755 Permission
+
+```bash
+mkdir project
+chmod 755 project
+```
+
+---
+
+# Verify Updated Permissions
+
+```bash
+ls -l
+```
+
+---
+
+# Test Permissions
+
+## Try Writing to Read-Only File
+
+```bash
+echo "test" >> devops.txt
+```
+
+Observed:
+- Permission denied error occurred.
+
+---
+
+## Try Executing File Without Execute Permission
+
+```bash
+./notes.txt
+```
+
+Observed:
+- Permission denied because execute permission was missing.
+
+---
+
+# What I Learned
+
+- How Linux file permissions work
+- How to modify permissions using chmod
+- Difference between read, write, and execute permissions
+
+#90DaysOfDevOps 🚀
