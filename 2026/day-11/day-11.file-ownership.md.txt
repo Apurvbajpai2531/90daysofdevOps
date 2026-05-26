@@ -1,0 +1,240 @@
+# Day 11 – File Ownership Challenge 🚀
+
+# Files & Directories Created
+
+## Files
+- devops-file.txt
+- team-notes.txt
+- project-config.yaml
+- heist-project/vault/gold.txt
+- heist-project/plans/strategy.conf
+- bank-heist/access-codes.txt
+- bank-heist/blueprints.pdf
+- bank-heist/escape-plan.txt
+
+## Directories
+- app-logs/
+- heist-project/
+- heist-project/vault/
+- heist-project/plans/
+- bank-heist/
+
+---
+
+# Understanding Ownership
+
+```bash
+ls -l
+```
+
+Observed format:
+
+```text
+-rw-r--r-- 1 owner group size date filename
+```
+
+- Owner → user who owns the file
+- Group → users in the same group can access based on permissions
+
+---
+
+# Commands Used
+
+## Create Users
+
+```bash
+sudo useradd -m tokyo
+sudo useradd -m berlin
+sudo useradd -m professor
+sudo useradd -m nairobi
+```
+
+---
+
+## Create Groups
+
+```bash
+sudo groupadd heist-team
+sudo groupadd planners
+sudo groupadd vault-team
+sudo groupadd tech-team
+```
+
+---
+
+# Basic chown Operations
+
+## Create File
+
+```bash
+touch devops-file.txt
+```
+
+Check ownership:
+
+```bash
+ls -l devops-file.txt
+```
+
+Change owner:
+
+```bash
+sudo chown tokyo devops-file.txt
+sudo chown berlin devops-file.txt
+```
+
+Verify:
+
+```bash
+ls -l devops-file.txt
+```
+
+---
+
+# Basic chgrp Operations
+
+## Create File
+
+```bash
+touch team-notes.txt
+```
+
+Check group:
+
+```bash
+ls -l team-notes.txt
+```
+
+Change group:
+
+```bash
+sudo chgrp heist-team team-notes.txt
+```
+
+Verify:
+
+```bash
+ls -l team-notes.txt
+```
+
+---
+
+# Combined Owner & Group Change
+
+## Create File
+
+```bash
+touch project-config.yaml
+```
+
+Change owner and group:
+
+```bash
+sudo chown professor:heist-team project-config.yaml
+```
+
+---
+
+## Create Directory
+
+```bash
+mkdir app-logs
+```
+
+Change ownership:
+
+```bash
+sudo chown berlin:heist-team app-logs
+```
+
+Verify:
+
+```bash
+ls -ld app-logs
+```
+
+---
+
+# Recursive Ownership Change
+
+## Create Directory Structure
+
+```bash
+mkdir -p heist-project/vault
+mkdir -p heist-project/plans
+
+touch heist-project/vault/gold.txt
+touch heist-project/plans/strategy.conf
+```
+
+---
+
+## Recursive Ownership Change
+
+```bash
+sudo chown -R professor:planners heist-project/
+```
+
+Verify:
+
+```bash
+ls -lR heist-project/
+```
+
+---
+
+# Practice Challenge
+
+## Create Directory
+
+```bash
+mkdir bank-heist
+```
+
+---
+
+## Create Files
+
+```bash
+touch bank-heist/access-codes.txt
+touch bank-heist/blueprints.pdf
+touch bank-heist/escape-plan.txt
+```
+
+---
+
+## Set Ownership
+
+```bash
+sudo chown tokyo:vault-team bank-heist/access-codes.txt
+
+sudo chown berlin:tech-team bank-heist/blueprints.pdf
+
+sudo chown nairobi:vault-team bank-heist/escape-plan.txt
+```
+
+Verify:
+
+```bash
+ls -l bank-heist/
+```
+
+---
+
+# Ownership Changes
+
+- devops-file.txt → user:user → berlin:user
+- team-notes.txt → user:user → user:heist-team
+- project-config.yaml → user:user → professor:heist-team
+- app-logs/ → user:user → berlin:heist-team
+- heist-project/ → user:user → professor:planners
+
+---
+
+# What I Learned
+
+- Difference between file owner and group ownership
+- How to use chown and chgrp commands
+- How recursive ownership works in directories
+
+#90DaysOfDevOps 🚀
