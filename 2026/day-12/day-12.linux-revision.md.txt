@@ -1,0 +1,160 @@
+# Day 12 – Revision & Breather 🚀
+
+# Mindset & Learning Plan Review
+
+- Revisited my Day 01 DevOps learning plan
+- Goals still align with becoming a DevOps & Cloud Engineer
+- Need to improve consistency with hands-on Linux practice
+- Will focus more on troubleshooting and permissions in upcoming days
+
+---
+
+# Processes & Services Review
+
+## Process Check
+
+```bash
+ps aux | head
+```
+
+Observed:
+- Multiple background services running normally
+- System processes managed by systemd
+
+---
+
+## Service Check
+
+```bash
+systemctl status nginx
+```
+
+Observed:
+- Nginx service was active and running successfully
+
+---
+
+## Log Review
+
+```bash
+journalctl -u nginx -n 20
+```
+
+Observed:
+- No recent critical errors found in logs
+
+---
+
+# File Skills Practice
+
+## Append Content to File
+
+```bash
+echo "Revision practice" >> notes.txt
+```
+
+---
+
+## Change File Permission
+
+```bash
+chmod 640 notes.txt
+```
+
+---
+
+## Change Ownership
+
+```bash
+sudo chown tokyo:vault-team devops-file.txt
+```
+
+---
+
+# 5 Commands I Would Use First During an Incident
+
+| Command | Purpose |
+|---|---|
+| `top` | Monitor CPU and memory usage |
+| `ps aux` | Check running processes |
+| `systemctl status` | Verify service health |
+| `journalctl -u` | Review service logs |
+| `df -h` | Check disk usage |
+
+---
+
+# User & Group Sanity Check
+
+## Verify User Information
+
+```bash
+id tokyo
+```
+
+---
+
+## Verify File Ownership
+
+```bash
+ls -l devops-file.txt
+```
+
+Observed:
+- Ownership and group changes applied successfully
+
+---
+
+# Mini Self-Check
+
+## 1. Which 3 commands save you the most time right now?
+
+- `systemctl status` → quickly checks service health
+- `journalctl -u` → helps identify service errors
+- `ls -l` → verifies permissions and ownership
+
+---
+
+## 2. How do you check if a service is healthy?
+
+Commands:
+
+```bash
+systemctl status nginx
+journalctl -u nginx -n 20
+ps aux | grep nginx
+```
+
+---
+
+## 3. How do you safely change ownership and permissions?
+
+Example:
+
+```bash
+sudo chown tokyo:vault-team devops-file.txt
+chmod 640 notes.txt
+```
+
+Always verify changes using:
+
+```bash
+ls -l
+```
+
+---
+
+## 4. What will I improve in the next 3 days?
+
+- Linux troubleshooting speed
+- File permission understanding
+- Real-world DevOps command practice
+
+---
+
+# Key Takeaways
+
+- Revision helped reinforce Linux fundamentals
+- Repeating commands improves confidence
+- Logs and permissions are critical in DevOps troubleshooting
+
+#90DaysOfDevOps 🚀
