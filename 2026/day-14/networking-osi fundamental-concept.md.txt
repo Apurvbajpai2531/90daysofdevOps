@@ -1,0 +1,201 @@
+# Day 14 – Networking Fundamentals & Hands-on Checks 🚀
+
+# Quick Concepts
+
+## OSI Model vs TCP/IP Model
+
+### OSI Model
+- Layer 1: Physical
+- Layer 2: Data Link
+- Layer 3: Network
+- Layer 4: Transport
+- Layer 5: Session
+- Layer 6: Presentation
+- Layer 7: Application
+
+### TCP/IP Model
+- Link Layer
+- Internet Layer
+- Transport Layer
+- Application Layer
+
+---
+
+## Protocols in the Stack
+
+- IP → Network/Internet Layer
+- TCP & UDP → Transport Layer
+- DNS → Application Layer
+- HTTP/HTTPS → Application Layer
+
+Example:
+
+```text
+curl https://google.com
+```
+
+Application Layer (HTTP/HTTPS)
+↓
+Transport Layer (TCP)
+↓
+Internet Layer (IP)
+
+---
+
+# Hands-on Checklist
+
+## Identity Check
+
+```bash
+hostname -I
+```
+
+Observed:
+- Displayed local machine IP address.
+
+---
+
+## Reachability Check
+
+```bash
+ping google.com
+```
+
+Observed:
+- Successful replies received.
+- 0% packet loss.
+- Stable latency.
+
+---
+
+## Path Check
+
+```bash
+traceroute google.com
+```
+
+Observed:
+- Multiple network hops identified.
+- No major delays detected.
+
+---
+
+## Open Ports Check
+
+```bash
+ss -tulpn
+```
+
+Observed:
+- SSH service listening on port 22.
+
+---
+
+## DNS Resolution
+
+```bash
+nslookup google.com
+```
+
+Observed:
+- Domain successfully resolved to an IP address.
+
+---
+
+## HTTP Check
+
+```bash
+curl -I https://google.com
+```
+
+Observed:
+- HTTP Status Code: 200 OK
+
+---
+
+## Connection Snapshot
+
+```bash
+netstat -an | head
+```
+
+Observed:
+- Active LISTEN and ESTABLISHED connections visible.
+
+---
+
+# Mini Task: Port Probe & Interpret
+
+## Identify Listening Port
+
+```bash
+ss -tulpn
+```
+
+Observed:
+- SSH listening on port 22.
+
+---
+
+## Test Port
+
+```bash
+nc -zv localhost 22
+```
+
+Observed:
+- Connection successful.
+
+If not reachable:
+- Check service status
+- Verify firewall rules
+- Confirm service is listening on the expected port
+
+---
+
+# Reflection
+
+## Which command gives the fastest signal when something is broken?
+
+```bash
+ping
+```
+
+It quickly confirms basic network connectivity.
+
+---
+
+## What layer would you inspect if DNS fails?
+
+Application Layer
+
+Check:
+- DNS server configuration
+- DNS resolution commands
+
+---
+
+## What layer would you inspect if HTTP 500 appears?
+
+Application Layer
+
+Check:
+- Application logs
+- Web server logs
+- Backend service health
+
+---
+
+## Two Follow-Up Checks During an Incident
+
+```bash
+journalctl -xe
+```
+
+```bash
+systemctl status nginx
+```
+
+These help identify service failures and log errors.
+
+#90DaysOfDevOps 🚀
