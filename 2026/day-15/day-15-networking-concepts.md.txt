@@ -1,0 +1,197 @@
+# Day 15 – Networking Concepts: DNS, IP, Subnets & Ports 🚀
+
+# Task 1: DNS – How Names Become IPs
+
+When we type `google.com` in a browser:
+
+1. Browser checks local DNS cache.
+2. Request goes to DNS resolver.
+3. DNS server returns the IP address of google.com.
+4. Browser connects to that IP using HTTP/HTTPS.
+
+---
+
+## DNS Record Types
+
+| Record | Purpose |
+|----------|----------|
+| A | Maps domain to IPv4 address |
+| AAAA | Maps domain to IPv6 address |
+| CNAME | Alias of another domain |
+| MX | Mail server record |
+| NS | Name server record |
+
+---
+
+## Command
+
+```bash
+dig google.com
+```
+
+Observed:
+- A Record → 142.250.xx.xx
+- TTL → 300 seconds (example)
+
+---
+
+# Task 2: IP Addressing
+
+## What is IPv4?
+
+IPv4 is a 32-bit address used to identify devices on a network.
+
+Example:
+
+```text
+192.168.1.10
+```
+
+---
+
+## Public vs Private IP
+
+### Public IP
+Accessible over the internet.
+
+Example:
+
+```text
+8.8.8.8
+```
+
+### Private IP
+Used inside local networks.
+
+Example:
+
+```text
+192.168.1.100
+```
+
+---
+
+## Private IP Ranges
+
+```text
+10.0.0.0 – 10.255.255.255
+
+172.16.0.0 – 172.31.255.255
+
+192.168.0.0 – 192.168.255.255
+```
+
+---
+
+## Command
+
+```bash
+ip addr show
+```
+
+Observed:
+- My IP belongs to a private IP range.
+
+---
+
+# Task 3: CIDR & Subnetting
+
+## What does /24 mean?
+
+```text
+192.168.1.0/24
+```
+
+24 bits are reserved for network portion and remaining 8 bits for hosts.
+
+---
+
+## Why Do We Subnet?
+
+- Better network organization
+- Improved security
+- Reduced broadcast traffic
+- Efficient IP utilization
+
+---
+
+## CIDR Table
+
+| CIDR | Subnet Mask | Total IPs | Usable Hosts |
+|--------|---------------|------------|-------------|
+| /24 | 255.255.255.0 | 256 | 254 |
+| /16 | 255.255.0.0 | 65,536 | 65,534 |
+| /28 | 255.255.255.240 | 16 | 14 |
+
+---
+
+# Task 4: Ports – The Doors to Services
+
+## What is a Port?
+
+A port identifies a specific service running on a device.
+
+Ports allow multiple services to communicate using the same IP address.
+
+---
+
+## Common Ports
+
+| Port | Service |
+|--------|----------|
+| 22 | SSH |
+| 80 | HTTP |
+| 443 | HTTPS |
+| 53 | DNS |
+| 3306 | MySQL |
+| 6379 | Redis |
+| 27017 | MongoDB |
+
+---
+
+## Command
+
+```bash
+ss -tulpn
+```
+
+Observed:
+
+| Port | Service |
+|--------|----------|
+| 22 | SSH |
+| 80 | Nginx |
+
+---
+
+# Task 5: Putting It Together
+
+## curl http://myapp.com:8080
+
+Concepts involved:
+
+- DNS resolves myapp.com to an IP
+- TCP establishes connection on port 8080
+- HTTP request is sent
+- IP routes packets between client and server
+
+---
+
+## App Can't Reach Database at 10.0.1.50:3306
+
+First checks:
+
+- Verify database service is running
+- Check port 3306 is listening
+- Verify firewall/security group rules
+- Confirm network connectivity using ping or telnet
+
+---
+
+# What I Learned
+
+- How DNS converts domain names into IP addresses
+- How CIDR and subnetting help organize networks
+- Why ports are important for service communication
+
+#90DaysOfDevOps 🚀
