@@ -1,0 +1,123 @@
+# Day 16 Notes
+
+## What is Shell Scripting?
+
+Shell scripting is the process of writing commands in a file and executing them automatically using a shell interpreter like Bash.
+
+Benefits:
+- Automation
+- Reduced manual work
+- Faster system administration
+- Core DevOps skill
+
+---
+
+## Shebang
+
+```bash
+#!/bin/bash
+```
+
+Purpose:
+- Tells Linux which interpreter should run the script.
+- Usually placed on the first line of every Bash script.
+
+---
+
+## Variables
+
+```bash
+NAME="Apurv"
+ROLE="DevOps Engineer"
+```
+
+Access variables using:
+
+```bash
+echo $NAME
+```
+
+---
+
+## Single vs Double Quotes
+
+Single Quotes:
+
+```bash
+echo '$NAME'
+```
+
+Output:
+
+```text
+$NAME
+```
+
+Double Quotes:
+
+```bash
+echo "$NAME"
+```
+
+Output:
+
+```text
+Apurv
+```
+
+---
+
+## User Input
+
+```bash
+read -p "Enter Name: " NAME
+```
+
+Used to accept input from users.
+
+---
+
+## If-Else Condition
+
+```bash
+if [ condition ]
+then
+    commands
+else
+    commands
+fi
+```
+
+Used for decision making.
+
+---
+
+## File Check
+
+```bash
+if [ -f file.txt ]
+then
+    echo "File exists"
+fi
+```
+
+Checks whether a file exists.
+
+---
+
+## Service Check
+
+```bash
+systemctl status nginx
+```
+
+Used to verify service health.
+
+---
+
+# Key Learnings
+
+1. Every Bash script should start with a shebang.
+2. Variables and user input make scripts dynamic.
+3. If-else statements help automate decisions.
+4. Shell scripting is the foundation of DevOps automation.
