@@ -1,0 +1,143 @@
+# Day 17 Notes
+
+## For Loop
+
+Used when we know how many times a task should run.
+
+Syntax:
+
+```bash
+for item in list
+do
+    commands
+done
+```
+
+Example:
+
+```bash
+for fruit in Apple Mango Banana Orange Grapes
+do
+    echo $fruit
+done
+```
+
+---
+
+## While Loop
+
+Used when a task should continue until a condition becomes false.
+
+Syntax:
+
+```bash
+while [ condition ]
+do
+    commands
+done
+```
+
+Example:
+
+```bash
+while [ $num -ge 0 ]
+do
+    echo $num
+    ((num--))
+done
+```
+
+---
+
+## Command Line Arguments
+
+Arguments are values passed while running a script.
+
+Example:
+
+```bash
+./greet.sh Apurv
+```
+
+Special Variables:
+
+| Variable | Description |
+|-----------|-------------|
+| `$0` | Script name |
+| `$1` | First argument |
+| `$2` | Second argument |
+| `$#` | Total arguments |
+| `$@` | All arguments |
+
+Example:
+
+```bash
+echo $0
+echo $1
+echo $#
+echo $@
+```
+
+---
+
+## Package Installation Automation
+
+Check package:
+
+```bash
+dpkg -s nginx
+```
+
+Install package:
+
+```bash
+apt install nginx -y
+```
+
+Automation helps install multiple packages quickly using loops.
+
+---
+
+## Root User Check
+
+```bash
+if [ "$EUID" -ne 0 ]
+then
+    echo "Run as root"
+    exit 1
+fi
+```
+
+Used to ensure the script has required privileges.
+
+---
+
+## Error Handling
+
+### set -e
+
+```bash
+set -e
+```
+
+Stops script execution immediately if a command fails.
+
+---
+
+### OR Operator
+
+```bash
+mkdir /tmp/devops-test || echo "Directory already exists"
+```
+
+If first command fails, second command executes.
+
+---
+
+## Key Learnings
+
+1. For loops help automate repetitive tasks.
+2. Command-line arguments make scripts dynamic.
+3. Error handling prevents scripts from failing silently.
+4. Root checks are important for system administration scripts.
+5. Shell scripting is a core DevOps automation skill.
