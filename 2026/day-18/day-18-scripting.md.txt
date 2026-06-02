@@ -1,0 +1,180 @@
+# Day 18 – Shell Scripting: Functions & Intermediate Concepts 🚀
+
+## Functions
+
+Functions help make scripts reusable and organized.
+
+Syntax:
+
+```bash
+function_name() {
+    commands
+}
+```
+
+Example:
+
+```bash
+greet() {
+    echo "Hello, $1!"
+}
+
+greet "Apurv"
+```
+
+---
+
+## Functions with Arguments
+
+Pass values to functions just like scripts.
+
+Example:
+
+```bash
+add() {
+    echo $(($1 + $2))
+}
+
+add 10 20
+```
+
+Output:
+
+```text
+30
+```
+
+---
+
+## Strict Mode
+
+Add after shebang:
+
+```bash
+set -euo pipefail
+```
+
+### set -e
+
+Stops script immediately if a command fails.
+
+Example:
+
+```bash
+rm file_that_does_not_exist
+```
+
+Script exits instantly.
+
+---
+
+### set -u
+
+Treats undefined variables as errors.
+
+Example:
+
+```bash
+echo $USERNAME
+```
+
+If USERNAME is not defined, script exits.
+
+---
+
+### set -o pipefail
+
+Fails a pipeline if any command fails.
+
+Example:
+
+```bash
+cat missing.txt | grep hello
+```
+
+Without pipefail:
+- Pipeline may appear successful.
+
+With pipefail:
+- Script exits because `cat` failed.
+
+---
+
+## Local Variables
+
+Use local variables inside functions.
+
+Example:
+
+```bash
+demo() {
+    local NAME="Apurv"
+    echo $NAME
+}
+```
+
+Local variables are available only inside the function.
+
+---
+
+## Disk Usage Check
+
+```bash
+df -h
+```
+
+Used to monitor disk utilization.
+
+---
+
+## Memory Usage Check
+
+```bash
+free -h
+```
+
+Used to monitor RAM usage.
+
+---
+
+## System Information Commands
+
+Hostname:
+
+```bash
+hostname
+```
+
+OS Information:
+
+```bash
+cat /etc/os-release
+```
+
+Uptime:
+
+```bash
+uptime
+```
+
+Top CPU Processes:
+
+```bash
+ps aux --sort=-%cpu | head -5
+```
+
+Largest Directories:
+
+```bash
+du -sh /* 2>/dev/null | sort -hr | head -5
+```
+
+---
+
+# Key Learnings
+
+1. Functions improve code reusability and readability.
+2. Strict mode makes scripts safer and easier to debug.
+3. Local variables prevent accidental variable conflicts.
+4. System monitoring scripts can automate health checks.
+5. Writing modular scripts is a DevOps best practice.
