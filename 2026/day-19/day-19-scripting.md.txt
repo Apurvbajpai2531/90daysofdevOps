@@ -1,0 +1,159 @@
+# Day 19 – Shell Scripting Project: Log Rotation, Backup & Crontab 🚀
+
+## Project 1: Log Rotation Script
+
+### Purpose
+
+Automates log cleanup and compression.
+
+Features:
+- Compresses old .log files
+- Deletes old compressed files
+- Saves disk space
+- Improves log management
+
+---
+
+### Commands Used
+
+Find old logs:
+
+```bash
+find /var/log/myapp -name "*.log" -mtime +7
+```
+
+Compress logs:
+
+```bash
+gzip file.log
+```
+
+Delete old archives:
+
+```bash
+find /var/log/myapp -name "*.gz" -mtime +30 -delete
+```
+
+---
+
+## Project 2: Server Backup Script
+
+### Purpose
+
+Creates compressed backups of important directories.
+
+Features:
+- Creates timestamped archives
+- Verifies backup creation
+- Removes old backups
+- Supports automation
+
+---
+
+### Commands Used
+
+Generate timestamp:
+
+```bash
+date +%Y-%m-%d
+```
+
+Create archive:
+
+```bash
+tar -czf backup.tar.gz /source/path
+```
+
+Check file size:
+
+```bash
+ls -lh backup.tar.gz
+```
+
+Delete old backups:
+
+```bash
+find /backup -name "*.tar.gz" -mtime +14 -delete
+```
+
+---
+
+## Crontab Basics
+
+View scheduled jobs:
+
+```bash
+crontab -l
+```
+
+Edit cron jobs:
+
+```bash
+crontab -e
+```
+
+Cron Format:
+
+```text
+* * * * * command
+│ │ │ │ │
+│ │ │ │ └── Day of week
+│ │ │ └──── Month
+│ │ └────── Day of month
+│ └──────── Hour
+└────────── Minute
+```
+
+---
+
+## Cron Entries
+
+### Run Log Rotation Daily at 2 AM
+
+```bash
+0 2 * * * /home/user/log_rotate.sh
+```
+
+### Run Backup Every Sunday at 3 AM
+
+```bash
+0 3 * * 0 /home/user/backup.sh
+```
+
+### Run Health Check Every 5 Minutes
+
+```bash
+*/5 * * * * /home/user/health_check.sh
+```
+
+### Run Maintenance Daily at 1 AM
+
+```bash
+0 1 * * * /home/user/maintenance.sh
+```
+
+---
+
+## Maintenance Script Concept
+
+Tasks:
+- Run log rotation
+- Run backup
+- Save output to log file
+- Add timestamps
+
+Example:
+
+```bash
+echo "$(date): Backup completed" >> /var/log/maintenance.log
+```
+
+---
+
+# Key Learnings
+
+1. Log rotation prevents unnecessary disk usage.
+2. Automated backups protect important data.
+3. Cron jobs help schedule tasks without manual intervention.
+4. Combining scripts creates reusable maintenance workflows.
+5. Automation is a core DevOps responsibility.
