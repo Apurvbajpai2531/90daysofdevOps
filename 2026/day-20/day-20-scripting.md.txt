@@ -1,0 +1,218 @@
+# Day 20 - Bash Scripting Challenge: Log Analyzer and Report Generator
+
+## 📌 Overview
+
+In this challenge, I built a **Log Analyzer and Report Generator** using Bash scripting. The script automates log analysis by identifying errors, detecting critical events, generating summary reports, and archiving processed logs.
+
+This project simulates a real-world DevOps/System Administration task where engineers analyze application and system logs to troubleshoot issues and monitor infrastructure health.
+
+---
+
+## 🎯 Objectives
+
+* Accept a log file as input.
+* Validate user input and file existence.
+* Count total errors and failed events.
+* Detect critical events with line numbers.
+* Identify the top 5 most common error messages.
+* Generate a summary report automatically.
+* Archive processed log files.
+
+---
+
+## 🛠️ Technologies Used
+
+* Bash Scripting
+* Linux Commands
+* grep
+* awk
+* sort
+* uniq
+* wc
+* date
+* mv
+* mkdir
+
+---
+
+## 📂 Project Structure
+
+```bash
+day-20/
+├── README.md
+├── log_analyzer.sh
+├── day-20-solution.md
+├── sample_log.log
+├── log_report_YYYY-MM-DD.txt
+└── archive/
+```
+
+---
+
+## 🚀 Features
+
+### 1. Input Validation
+
+Checks whether:
+
+* A log file path is provided.
+* The file exists.
+
+Example:
+
+```bash
+./log_analyzer.sh sample_log.log
+```
+
+---
+
+### 2. Error Count
+
+Counts all lines containing:
+
+* ERROR
+* Failed
+
+Example:
+
+```bash
+Total Errors Found: 57
+```
+
+---
+
+### 3. Critical Event Detection
+
+Displays all CRITICAL events with line numbers.
+
+Example:
+
+```text
+--- Critical Events ---
+
+Line 84: CRITICAL Disk space below threshold
+Line 217: CRITICAL Database connection lost
+```
+
+---
+
+### 4. Top 5 Error Messages
+
+Displays the most frequent errors.
+
+Example:
+
+```text
+--- Top 5 Error Messages ---
+
+45 Connection timed out
+32 File not found
+28 Permission denied
+15 Disk I/O error
+9 Out of memory
+```
+
+---
+
+### 5. Summary Report Generation
+
+Automatically creates:
+
+```bash
+log_report_2026-06-04.txt
+```
+
+Report contains:
+
+* Date of analysis
+* Log file name
+* Total lines processed
+* Error count
+* Top 5 errors
+* Critical events
+
+---
+
+### 6. Log Archiving
+
+After processing:
+
+```bash
+archive/
+```
+
+directory is created (if it does not exist) and the processed log file is moved into it.
+
+---
+
+## ▶️ How to Run
+
+Make the script executable:
+
+```bash
+chmod +x log_analyzer.sh
+```
+
+Run:
+
+```bash
+./log_analyzer.sh sample_log.log
+```
+
+---
+
+## 📊 Sample Output
+
+```text
+Total Errors Found: 57
+
+--- Critical Events ---
+Line 84: CRITICAL Disk space below threshold
+Line 217: CRITICAL Database connection lost
+
+--- Top 5 Error Messages ---
+45 Connection timed out
+32 File not found
+28 Permission denied
+15 Disk I/O error
+9 Out of memory
+
+Report Generated Successfully:
+log_report_2026-06-04.txt
+```
+
+---
+
+## 📚 Key Learnings
+
+* Working with command-line arguments in Bash.
+* File validation and error handling.
+* Log analysis using grep and awk.
+* Data aggregation using sort and uniq.
+* Report generation through shell scripts.
+* Automating repetitive system administration tasks.
+
+---
+
+## 🌟 Real-World Use Cases
+
+* Server Log Monitoring
+* Application Troubleshooting
+* Infrastructure Health Analysis
+* Security Incident Investigation
+* DevOps Automation
+
+---
+
+## 🔗 Repository
+
+GitHub:
+https://github.com/Apurvbajpai2531/90DaysOfDevOps2026
+
+---
+
+### Day 20 Completed ✅
+
+Learning Bash scripting through practical log analysis tasks and building automation skills essential for DevOps Engineers.
+
+#90DaysOfDevOps #DevOpsKaJosh #TrainWithShubham #Linux #Bash #ShellScripting #DevOps
