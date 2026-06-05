@@ -1,0 +1,408 @@
+# Shell Scripting Cheat Sheet
+
+## Quick Reference Table
+
+| Topic    | Key Syntax        | Example                          |
+| -------- | ----------------- | -------------------------------- |
+| Variable | VAR="value"       | NAME="Apurv"                     |
+| Argument | $1, $2            | ./script.sh file.txt             |
+| If       | if [ condition ]  | if [ -f file ]; then             |
+| For Loop | for i in list     | for i in 1 2 3; do               |
+| Function | name() { }        | greet() { echo "Hi"; }           |
+| Grep     | grep pattern file | grep -i error log.txt            |
+| Awk      | awk '{print $1}'  | awk -F: '{print $1}' /etc/passwd |
+| Sed      | sed 's/old/new/g' | sed -i 's/foo/bar/g' file        |
+| While    | while condition   | while read line                  |
+| Case     | case var in       | case $opt in                     |
+
+---
+
+# 1. Basics
+
+## Shebang
+
+```bash
+#!/bin/bash
+```
+
+Specifies Bash as the interpreter.
+
+## Run Script
+
+```bash
+chmod +x script.sh
+./script.sh
+bash script.sh
+```
+
+## Comments
+
+```bash
+# Single-line comment
+
+echo "Hello" # Inline comment
+```
+
+## Variables
+
+```bash
+NAME="Apurv"
+echo $NAME
+echo "$NAME"
+echo '$NAME'
+```
+
+## User Input
+
+```bash
+read -p "Enter name: " name
+echo $name
+```
+
+## Command Line Arguments
+
+```bash
+$0  # Script name
+$1  # First argument
+$#  # Number of arguments
+$@  # All arguments
+$?  # Exit status
+```
+
+---
+
+# 2. Operators & Conditionals
+
+## String Comparison
+
+```bash
+[[ "$a" == "$b" ]]
+[[ "$a" != "$b" ]]
+[[ -z "$a" ]]
+[[ -n "$a" ]]
+```
+
+## Integer Comparison
+
+```bash
+-eq
+-ne
+-lt
+-gt
+-le
+-ge
+```
+
+Example:
+
+```bash
+[[ $a -gt $b ]]
+```
+
+## File Tests
+
+```bash
+-f file
+-d dir
+-e file
+-r file
+-w file
+-x file
+-s file
+```
+
+## If Else
+
+```bash
+if [[ $age -ge 18 ]]; then
+    echo "Adult"
+elif [[ $age -ge 13 ]]; then
+    echo "Teen"
+else
+    echo "Child"
+fi
+```
+
+## Logical Operators
+
+```bash
+&&
+||
+!
+```
+
+## Case Statement
+
+```bash
+case $choice in
+    1) echo "Start";;
+    2) echo "Stop";;
+    *) echo "Invalid";;
+esac
+```
+
+---
+
+# 3. Loops
+
+## For Loop
+
+```bash
+for i in 1 2 3
+do
+    echo $i
+done
+```
+
+## C-Style For
+
+```bash
+for ((i=1;i<=5;i++))
+do
+    echo $i
+done
+```
+
+## While Loop
+
+```bash
+count=1
+
+while [[ $count -le 5 ]]
+do
+    echo $count
+    ((count++))
+done
+```
+
+## Until Loop
+
+```bash
+count=1
+
+until [[ $count -gt 5 ]]
+do
+    echo $count
+    ((count++))
+done
+```
+
+## Break & Continue
+
+```bash
+break
+continue
+```
+
+## Loop Files
+
+```bash
+for file in *.log
+do
+    echo $file
+done
+```
+
+---
+
+# 4. Functions
+
+## Create Function
+
+```bash
+greet() {
+    echo "Hello"
+}
+```
+
+## Call Function
+
+```bash
+greet
+```
+
+## Function Arguments
+
+```bash
+sum() {
+    echo $(($1 + $2))
+}
+
+sum 10 20
+```
+
+## Local Variable
+
+```bash
+test() {
+    local name="Apurv"
+}
+```
+
+---
+
+# 5. Text Processing Commands
+
+## grep
+
+```bash
+grep error file.log
+grep -i error file.log
+grep -n error file.log
+grep -c error file.log
+grep -v error file.log
+grep -r error .
+```
+
+## awk
+
+```bash
+awk '{print $1}' file
+awk -F: '{print $1}' /etc/passwd
+```
+
+## sed
+
+```bash
+sed 's/foo/bar/g' file
+sed -i 's/foo/bar/g' file
+```
+
+## cut
+
+```bash
+cut -d: -f1 file
+```
+
+## sort
+
+```bash
+sort file
+sort -n file
+sort -r file
+```
+
+## uniq
+
+```bash
+uniq file
+uniq -c file
+```
+
+## tr
+
+```bash
+tr a-z A-Z
+```
+
+## wc
+
+```bash
+wc -l file
+wc -w file
+wc -c file
+```
+
+## head / tail
+
+```bash
+head -10 file
+tail -10 file
+tail -f logfile
+```
+
+---
+
+# 6. Useful One-Liners
+
+## Delete Old Files
+
+```bash
+find . -type f -mtime +30 -delete
+```
+
+## Count Log Lines
+
+```bash
+wc -l *.log
+```
+
+## Replace Text
+
+```bash
+sed -i 's/old/new/g' *.txt
+```
+
+## Check Service
+
+```bash
+systemctl is-active nginx
+```
+
+## Monitor Disk Usage
+
+```bash
+df -h
+```
+
+## Real-Time Error Monitoring
+
+```bash
+tail -f app.log | grep ERROR
+```
+
+---
+
+# 7. Error Handling & Debugging
+
+## Exit Codes
+
+```bash
+echo $?
+exit 0
+exit 1
+```
+
+## Exit On Error
+
+```bash
+set -e
+```
+
+## Unset Variable Error
+
+```bash
+set -u
+```
+
+## Catch Pipe Errors
+
+```bash
+set -o pipefail
+```
+
+## Debug Mode
+
+```bash
+set -x
+```
+
+## Trap Cleanup
+
+```bash
+trap 'echo Cleanup Done' EXIT
+```
+
+---
+
+# Key Learnings
+
+* Bash scripting fundamentals
+* Conditional statements
+* Loops and functions
+* Log analysis commands
+* Text processing utilities
+* Error handling and debugging
+* Real-world DevOps automation
+
+#90DaysOfDevOps #DevOpsKaJosh #TrainWithShubham
