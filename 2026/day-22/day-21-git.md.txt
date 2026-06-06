@@ -1,0 +1,204 @@
+# 🚀 Day 22 - Introduction to Git: Your First Repository
+
+Welcome to **Day 22** of my **#90DaysOfDevOps2026** journey.
+
+Today marks the beginning of my Git journey. Git is the foundation of modern software development and DevOps practices, enabling version control, collaboration, and efficient project management.
+
+---
+
+## 📚 Objectives
+
+In this task, I learned how to:
+
+* Understand what Git is and why it is important
+* Configure Git on my local machine
+* Create and initialize a Git repository
+* Track file changes using Git
+* Stage and commit changes
+* View commit history
+* Build a personal Git command reference
+* Understand the Git workflow and repository structure
+
+---
+
+## 🛠️ Tasks Completed
+
+### ✅ Task 1: Install and Configure Git
+
+Verified Git installation:
+
+```bash
+git --version
+```
+
+Configured Git identity:
+
+```bash
+git config --global user.name "Apurv Bajpai"
+git config --global user.email "apurvbjp@gmail.com"
+```
+
+Verified configuration:
+
+```bash
+git config --list
+```
+
+---
+
+### ✅ Task 2: Create Git Project
+
+Created project directory:
+
+```bash
+mkdir devops-git-practice
+cd devops-git-practice
+```
+
+Initialized repository:
+
+```bash
+git init
+```
+
+Checked repository status:
+
+```bash
+git status
+```
+
+Explored hidden Git directory:
+
+```bash
+ls -la
+```
+
+---
+
+### ✅ Task 3: Created Git Commands Reference
+
+Created:
+
+* `git-commands.md`
+* `day-22-notes.md`
+
+Documented Git commands including:
+
+* Setup & Configuration
+* Basic Workflow
+* Viewing Changes
+* Commit History
+
+---
+
+### ✅ Task 4: Stage and Commit
+
+Added files to staging area:
+
+```bash
+git add .
+```
+
+Committed changes:
+
+```bash
+git commit -m "Initial Git commands reference"
+```
+
+Viewed commit history:
+
+```bash
+git log
+```
+
+---
+
+### ✅ Task 5: Build Commit History
+
+Made multiple updates to files and created several commits:
+
+```bash
+git commit -m "Added Git workflow notes"
+git commit -m "Updated Git commands reference"
+git commit -m "Completed Day 22 notes"
+```
+
+Compact commit history:
+
+```bash
+git log --oneline
+```
+
+---
+
+## 🔄 Understanding the Git Workflow
+
+```text
+Working Directory
+        │
+        ▼
+ Staging Area
+        │
+        ▼
+ Repository
+```
+
+### Working Directory
+
+The place where project files are created and modified.
+
+### Staging Area
+
+Temporary area where changes are prepared before committing.
+
+### Repository
+
+Stores the complete history of all commits.
+
+---
+
+## 📖 Key Learnings
+
+* Git tracks changes in source code efficiently.
+* The staging area provides control over what gets committed.
+* Commits create checkpoints in project history.
+* The `.git` folder contains all repository metadata and history.
+* Meaningful commit messages improve collaboration and maintainability.
+
+---
+
+## 📂 Files Created
+
+```text
+day-22/
+├── README.md
+├── git-commands.md
+└── day-22-notes.md
+```
+
+---
+
+## 📸 Proof of Completion
+
+* Git repository initialized successfully
+* Multiple commits created
+* Git command reference documented
+* Day 22 notes completed
+* Commit history verified using `git log --oneline`
+
+---
+
+## 🎯 Outcome
+
+By completing Day 22, I gained hands-on experience with Git fundamentals and established a strong foundation for advanced version control concepts that will be explored in upcoming days of the #90DaysOfDevOps2026 challenge.
+
+---
+
+### 🔗 Connect With Me
+
+* GitHub: https://github.com/Apurvbajpai2531
+* LinkedIn: [www.linkedin.com/in/apurv-bajpai-254687244](http://www.linkedin.com/in/apurv-bajpai-254687244)
+
+---
+
+#90DaysOfDevOps2026 #DevOps #Git #VersionControl #OpenSource #CloudComputing #Linux #TrainWithShubham #DevOpsKaJosh
