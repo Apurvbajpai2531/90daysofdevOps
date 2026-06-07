@@ -1,0 +1,228 @@
+# 🌿 Day 23 - Git Branching & Working with GitHub
+
+Welcome to **Day 23** of my **#90DaysOfDevOps2026** journey.
+
+Today I explored one of the most powerful features of Git — **Branching**. Branches allow developers to work on new features, bug fixes, and experiments without affecting the main codebase. I also learned how to connect a local repository to GitHub and collaborate using remote repositories.
+
+---
+
+## 🎯 Objectives
+
+By completing this task, I learned:
+
+* What Git branches are and why they are important
+* How to create, switch, and delete branches
+* The role of HEAD in Git
+* Working with GitHub remotes
+* Pushing local repositories to GitHub
+* Pulling changes from remote repositories
+* Understanding Fork vs Clone
+* Managing multiple branches effectively
+
+---
+
+## 📚 Tasks Completed
+
+### ✅ Task 1: Understanding Branches
+
+Topics Covered:
+
+* What is a branch in Git?
+* Why use branches instead of committing directly to main?
+* Understanding HEAD
+* What happens when switching branches?
+
+---
+
+### ✅ Task 2: Git Branching Commands
+
+Listed all branches:
+
+```bash
+git branch
+```
+
+Created a new branch:
+
+```bash
+git branch feature-1
+```
+
+Switched to feature-1:
+
+```bash
+git checkout feature-1
+```
+
+Created and switched in a single command:
+
+```bash
+git checkout -b feature-2
+```
+
+Using modern Git switch command:
+
+```bash
+git switch main
+git switch feature-1
+```
+
+Deleted an unused branch:
+
+```bash
+git branch -d feature-2
+```
+
+---
+
+### ✅ Task 3: Push Repository to GitHub
+
+Added GitHub remote:
+
+```bash
+git remote add origin <repository-url>
+```
+
+Verified remote:
+
+```bash
+git remote -v
+```
+
+Pushed main branch:
+
+```bash
+git push -u origin main
+```
+
+Pushed feature branch:
+
+```bash
+git push -u origin feature-1
+```
+
+Verified branches on GitHub.
+
+---
+
+### ✅ Task 4: Pull Changes from GitHub
+
+Pulled remote changes:
+
+```bash
+git pull origin main
+```
+
+Learned the difference between:
+
+```bash
+git fetch
+```
+
+and
+
+```bash
+git pull
+```
+
+---
+
+### ✅ Task 5: Clone vs Fork
+
+Cloned a public repository:
+
+```bash
+git clone <repository-url>
+```
+
+Forked a repository on GitHub and cloned the fork locally.
+
+---
+
+## 🌳 Git Branching Workflow
+
+```text
+main
+ │
+ ├── feature-1
+ │      └── Commit A
+ │
+ └── feature-2
+        └── Commit B
+```
+
+Branches allow isolated development without affecting production code.
+
+---
+
+## 🛠️ Commands Practiced
+
+### Branching
+
+```bash
+git branch
+git branch feature-1
+git switch feature-1
+git switch main
+git checkout -b feature-2
+git branch -d feature-2
+```
+
+### Remote Repositories
+
+```bash
+git remote add origin URL
+git remote -v
+git push -u origin main
+git push -u origin feature-1
+git fetch
+git pull
+```
+
+### Cloning
+
+```bash
+git clone URL
+```
+
+---
+
+## 📂 Files Updated
+
+```text
+day-23/
+├── README.md
+└── day-23-notes.md
+
+devops-git-practice/
+└── git-commands.md
+```
+
+---
+
+## 📖 Key Learnings
+
+* Branches enable safe and isolated development.
+* HEAD points to the current branch and commit.
+* GitHub remotes allow collaboration and backup.
+* git fetch downloads changes without merging.
+* git pull downloads and merges changes automatically.
+* Forking is useful when contributing to external repositories.
+* Cloning creates a local copy of a repository.
+
+---
+
+## 🚀 Outcome
+
+By completing Day 23, I gained practical experience with Git Branching and GitHub workflows, which are essential skills for modern DevOps engineers and software developers.
+
+---
+
+## 🌐 Connect With Me
+
+* GitHub: https://github.com/Apurvbajpai2531
+* LinkedIn: https://www.linkedin.com/in/apurv-bajpai-254687244/
+
+---
+
+#90DaysOfDevOps2026 #Git #GitHub #Branching #DevOps #OpenSource #CloudComputing #Linux #TrainWithShubham #DevOpsKaJosh
