@@ -1,0 +1,101 @@
+# Day 24 – Advanced Git: Merge, Rebase, Stash & Cherry Pick
+
+## 📌 Overview
+Today I practiced advanced Git concepts like merge strategies, rebase, stash, squash merge, and cherry-picking. These commands help in managing complex team workflows and keeping repository history clean and meaningful.
+
+---
+
+## 🔀 Task 1: Git Merge
+
+### Observations
+- Fast-forward merge happens when there is a linear path between branches.
+- Merge commit is created when branches diverge and both have separate commits.
+
+### Answers
+**What is a fast-forward merge?**  
+When Git simply moves the branch pointer forward because no divergence exists.
+
+**When does Git create a merge commit?**  
+When both branches have new commits and Git needs to combine histories.
+
+**What is a merge conflict?**  
+A conflict occurs when the same line is modified in both branches and Git cannot auto-merge.
+
+---
+
+## 🔁 Task 2: Git Rebase
+
+### Observations
+Rebase rewrites commit history by placing feature branch commits on top of updated main branch.
+
+### Answers
+**What does rebase do?**  
+It moves commits from one branch and applies them onto another base commit.
+
+**Difference between merge and rebase?**  
+- Merge preserves history  
+- Rebase creates linear history
+
+**Why not rebase pushed commits?**  
+Because it rewrites history and can break collaboration.
+
+**When to use rebase vs merge?**  
+- Rebase: clean linear history (local work)  
+- Merge: team collaboration safe history
+
+---
+
+## 🧩 Task 3: Squash vs Merge
+
+### Answers
+**What is squash merge?**  
+Combines all commits into one single commit before merging.
+
+**When to use it?**  
+For feature branches with messy or small commits.
+
+**Trade-off?**  
+Loss of detailed commit history.
+
+---
+
+## 🧰 Task 4: Git Stash
+
+### Answers
+**stash pop vs apply**
+- pop: removes stash after applying
+- apply: keeps stash after applying
+
+**Real-world usage**
+Used when switching context quickly without committing incomplete work.
+
+---
+
+## 🍒 Task 5: Cherry Pick
+
+### Answers
+**What is cherry-pick?**  
+Applies a specific commit from one branch into another.
+
+**When to use?**  
+Bug fixes or selective feature changes.
+
+**Risks?**  
+Can cause duplicate commits and messy history if overused.
+
+---
+
+## 📊 Summary
+- Learned how Git manages history
+- Understood clean vs messy workflows
+- Practiced real-world DevOps branching strategies
+
+---
+
+## 🔖 Commands Practiced
+- git merge
+- git rebase
+- git stash / stash pop / stash apply
+- git cherry-pick
+- git log --oneline --graph --all
+- git squash merge
