@@ -1,0 +1,273 @@
+# Day 25 – Git Reset vs Revert & Branching Strategies 🚀
+
+## Task 1: Git Reset
+
+### git reset --soft
+
+```bash
+git reset --soft HEAD~1
+```
+
+Observation:
+
+* Commit is removed from history.
+* Changes remain staged.
+* Files are ready to commit again.
+
+### git reset --mixed
+
+```bash
+git reset --mixed HEAD~1
+```
+
+Observation:
+
+* Commit is removed.
+* Changes remain in working directory.
+* Changes become unstaged.
+
+### git reset --hard
+
+```bash
+git reset --hard HEAD~1
+```
+
+Observation:
+
+* Commit is removed.
+* Staged and unstaged changes are deleted.
+* Working directory matches previous commit.
+
+### Difference Between Reset Types
+
+| Command | Commit Removed | Changes Staged | Changes Kept |
+| ------- | -------------- | -------------- | ------------ |
+| --soft  | Yes            | Yes            | Yes          |
+| --mixed | Yes            | No             | Yes          |
+| --hard  | Yes            | No             | No           |
+
+### Which One Is Destructive?
+
+`git reset --hard`
+
+Reason:
+
+* Permanently removes uncommitted changes from working directory.
+
+### When To Use?
+
+* Soft → Modify last commit message or combine commits.
+* Mixed → Unstage changes.
+* Hard → Discard local work completely.
+
+### Should Reset Be Used On Pushed Commits?
+
+No.
+
+Reason:
+
+* Rewrites Git history and can cause problems for collaborators.
+
+---
+
+# Task 2: Git Revert
+
+### Revert Commit Y
+
+```bash
+git revert <commit-id>
+```
+
+Observation:
+
+* New commit created that undoes commit Y.
+* Original commit remains in history.
+
+### Is Commit Y Still Visible?
+
+Yes.
+
+Check:
+
+```bash
+git log
+```
+
+Commit Y still exists but its changes are reversed.
+
+---
+
+# Task 3: Reset vs Revert
+
+| Feature                  | git reset                     | git revert                             |
+| ------------------------ | ----------------------------- | -------------------------------------- |
+| What it does             | Moves branch pointer backward | Creates new commit that undoes changes |
+| Removes history          | Yes                           | No                                     |
+| Safe for shared branches | No                            | Yes                                    |
+| Best use case            | Local commits                 | Pushed/shared commits                  |
+
+---
+
+# Task 4: Branching Strategies
+
+## GitFlow
+
+### Flow
+
+main → develop → feature → release → main
+
+### Used For
+
+* Enterprise projects
+* Scheduled releases
+
+### Pros
+
+* Structured workflow
+* Supports release management
+
+### Cons
+
+* More complex
+* Many branches to manage
+
+---
+
+## GitHub Flow
+
+### Flow
+
+main → feature branch → Pull Request → main
+
+### Used For
+
+* SaaS applications
+* Continuous deployment
+
+### Pros
+
+* Simple
+* Fast development
+
+### Cons
+
+* Less suitable for strict release cycles
+
+---
+
+## Trunk-Based Development
+
+### Flow
+
+main ← short-lived branches
+
+### Used For
+
+* Modern DevOps teams
+* Continuous Integration
+
+### Pros
+
+* Fast integration
+* Fewer merge conflicts
+
+### Cons
+
+* Requires strong testing automation
+
+---
+
+# Answers
+
+## Best Strategy For Startup Shipping Fast
+
+GitHub Flow
+
+Reason:
+
+* Lightweight workflow
+* Fast deployment
+
+## Best Strategy For Large Teams With Scheduled Releases
+
+GitFlow
+
+Reason:
+
+* Strong release management process
+
+## Open Source Project Example
+
+Kubernetes mainly follows GitHub-style workflow using Pull Requests and branch-based collaboration.
+
+---
+
+# Git Commands Learned (Days 22–25)
+
+## Setup & Config
+
+```bash
+git config --global user.name "Apurv"
+git config --global user.email "email@example.com"
+```
+
+## Basic Workflow
+
+```bash
+git status
+git add .
+git commit -m "message"
+git log
+git diff
+```
+
+## Branching
+
+```bash
+git branch
+git switch
+git checkout
+```
+
+## Remote Operations
+
+```bash
+git clone
+git push
+git pull
+git fetch
+```
+
+## Merge & Rebase
+
+```bash
+git merge
+git rebase
+```
+
+## Stash & Cherry Pick
+
+```bash
+git stash
+git stash pop
+git cherry-pick
+```
+
+## Reset & Revert
+
+```bash
+git reset --soft
+git reset --mixed
+git reset --hard
+git revert
+```
+
+# What I Learned
+
+1. Reset rewrites history while revert preserves history.
+2. GitHub Flow is simple and ideal for rapid development.
+3. Reflog can recover commits even after reset.
+4. Trunk-Based Development supports modern CI/CD practices.
+5. Choosing the right branching strategy depends on team size and release model.
+
+#90DaysOfDevOps 🚀
