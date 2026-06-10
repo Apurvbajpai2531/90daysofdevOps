@@ -1,0 +1,247 @@
+# Day 26 – GitHub CLI (gh) Notes 🚀
+
+## Task 1: Install & Authenticate
+
+### Install GitHub CLI
+
+Ubuntu:
+
+```bash
+sudo apt install gh
+```
+
+Windows:
+
+```powershell
+winget install GitHub.cli
+```
+
+### Login
+
+```bash
+gh auth login
+```
+
+### Verify Login
+
+```bash
+gh auth status
+```
+
+### Authentication Methods Supported
+
+* Browser-based authentication
+* Personal Access Token (PAT)
+* GitHub Enterprise authentication
+
+---
+
+# Task 2: Working with Repositories
+
+## Create Repository
+
+```bash
+gh repo create test-gh-repo --public --clone
+```
+
+## Clone Repository
+
+```bash
+gh repo clone owner/repository
+```
+
+## View Repository Details
+
+```bash
+gh repo view
+```
+
+## List Repositories
+
+```bash
+gh repo list
+```
+
+## Open Repository in Browser
+
+```bash
+gh repo view --web
+```
+
+## Delete Repository
+
+```bash
+gh repo delete test-gh-repo
+```
+
+---
+
+# Task 3: Issues
+
+## Create Issue
+
+```bash
+gh issue create \
+--title "Sample Issue" \
+--body "Testing GitHub CLI" \
+--label bug
+```
+
+## List Issues
+
+```bash
+gh issue list
+```
+
+## View Issue
+
+```bash
+gh issue view 1
+```
+
+## Close Issue
+
+```bash
+gh issue close 1
+```
+
+### How gh issue Helps Automation?
+
+* Auto-create issues from monitoring alerts
+* Create incident tickets automatically
+* Generate bug reports from CI/CD failures
+
+---
+
+# Task 4: Pull Requests
+
+## Create Branch
+
+```bash
+git checkout -b feature-demo
+```
+
+## Push Branch
+
+```bash
+git push origin feature-demo
+```
+
+## Create PR
+
+```bash
+gh pr create --fill
+```
+
+## List PRs
+
+```bash
+gh pr list
+```
+
+## View PR
+
+```bash
+gh pr view
+```
+
+## Merge PR
+
+```bash
+gh pr merge
+```
+
+### Merge Methods Supported
+
+* Merge Commit
+* Squash Merge
+* Rebase Merge
+
+### Review Someone Else's PR
+
+```bash
+gh pr checkout <pr-number>
+
+gh pr review <pr-number> --approve
+```
+
+---
+
+# Task 5: GitHub Actions
+
+## List Workflow Runs
+
+```bash
+gh run list
+```
+
+## View Workflow Run
+
+```bash
+gh run view <run-id>
+```
+
+### CI/CD Benefits
+
+* Monitor pipeline status
+* Trigger workflows automatically
+* Debug failed deployments
+* Automate release management
+
+---
+
+# Task 6: Useful gh Commands
+
+## GitHub API
+
+```bash
+gh api user
+```
+
+## Gists
+
+```bash
+gh gist create notes.txt
+```
+
+## Releases
+
+```bash
+gh release create v1.0
+```
+
+## Aliases
+
+```bash
+gh alias set prs "pr list"
+```
+
+## Search Repositories
+
+```bash
+gh search repos kubernetes
+```
+
+---
+
+# Favorite GitHub CLI Commands
+
+```bash
+gh auth status
+gh repo list
+gh issue list
+gh pr create
+gh run list
+```
+
+---
+
+# What I Learned
+
+1. GitHub repositories can be managed entirely from terminal.
+2. Pull Requests and Issues can be automated using GitHub CLI.
+3. GitHub CLI integrates well with CI/CD workflows.
+4. GitHub Actions can be monitored directly from terminal.
+5. GitHub CLI improves productivity by reducing browser dependency.
+
+#90DaysOfDevOps 🚀
