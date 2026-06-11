@@ -1,0 +1,209 @@
+# Day 27 – GitHub Profile Makeover 🚀
+
+## GitHub Profile
+
+GitHub Profile Link:
+
+```text
+https://github.com/Apurvbajpai2531
+```
+
+---
+
+# Task 1: GitHub Profile Audit
+
+## Before Improvements
+
+### Profile Picture
+
+* Professional profile picture available.
+
+### Bio
+
+* Updated bio to reflect DevOps and Cloud learning journey.
+
+### Pinned Repositories
+
+* Needed better organization and relevant project selection.
+
+### Repository Descriptions
+
+* Some repositories lacked proper descriptions.
+
+### Recruiter Perspective
+
+* Learning journey was visible but could be presented more professionally.
+
+---
+
+# Task 2: Profile README
+
+Created a GitHub Profile README repository:
+
+```text
+Apurvbajpai2531/Apurvbajpai2531
+```
+
+Added:
+
+* Introduction
+* Current learning journey
+* DevOps roadmap progress
+* Skills and tools
+* Contact links
+* Featured repositories
+
+---
+
+# Profile README Sections
+
+## About Me
+
+* DevOps & Cloud Enthusiast
+* Learning through #90DaysOfDevOps
+* Interested in Linux, Cloud, Automation and Kubernetes
+
+## Currently Working On
+
+* 90 Days of DevOps Challenge
+* Shell Scripting
+* Git & GitHub
+* Linux Administration
+
+## Skills
+
+* Linux
+* Git & GitHub
+* Shell Scripting
+* Networking
+* AWS (Learning)
+* Docker (Learning)
+* Kubernetes (Learning)
+
+---
+
+# Task 3: Repository Organization
+
+## 1. 90DaysOfDevOps
+
+Purpose:
+
+* Daily challenge submissions
+* Notes and documentation
+
+Improvements:
+
+* Organized day-wise folders
+* Updated README
+
+---
+
+## 2. Shell Scripts
+
+Purpose:
+
+* Store shell scripting projects and practice scripts
+
+Contents:
+
+* Day 16 Scripts
+* Day 17 Scripts
+* Day 18 Scripts
+* Day 19 Projects
+
+---
+
+## 3. Python Scripts
+
+Purpose:
+
+* Python learning and practice projects
+
+Contents:
+
+* Python examples
+* Automation scripts
+
+---
+
+## 4. DevOps Notes
+
+Purpose:
+
+* Linux Notes
+* Git Notes
+* Networking Notes
+* Cheat Sheets
+
+---
+
+# Task 4: Pinned Repositories
+
+Selected:
+
+1. 90DaysOfDevOps
+2. Shell Scripts
+3. DevOps Notes
+4. Python Scripts
+5. Hospital Management System
+6. Rails Fitness Project
+
+Reason:
+
+* Represents current learning journey and technical skills.
+
+---
+
+# Task 5: Cleanup
+
+Completed:
+
+* Removed unused repositories
+* Updated repository names
+* Added missing descriptions
+* Added README files
+* Verified no secrets or credentials exposed
+
+---
+
+# Task 6: Before & After Improvements
+
+## Improvement 1
+
+Better Profile Branding
+
+Reason:
+
+* Makes profile more professional and recruiter-friendly.
+
+---
+
+## Improvement 2
+
+Repository Organization
+
+Reason:
+
+* Easier navigation and project discovery.
+
+---
+
+## Improvement 3
+
+Improved Documentation
+
+Reason:
+
+* Demonstrates communication and documentation skills.
+
+---
+
+# What I Learned
+
+1. GitHub profile acts as a developer portfolio.
+2. Good documentation improves project visibility.
+3. Organized repositories create a strong first impression.
+4. Profile README helps showcase learning and skills.
+5. Recruiters often evaluate GitHub before technical discussions.
+
+#90DaysOfDevOps 🚀
