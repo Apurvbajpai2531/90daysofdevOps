@@ -1,0 +1,268 @@
+# Day 28 – Revision Day (Days 01–27) 🚀
+
+## Task 1: Self-Assessment Checklist
+
+### Linux
+
+✅ Navigate the file system, create/move/delete files and directories
+
+✅ Manage processes — list, kill, background/foreground
+
+✅ Work with systemd — start, stop, enable, check status of services
+
+✅ Read and edit text files using vim
+
+✅ Troubleshoot CPU, memory, and disk issues
+
+✅ Explain Linux file system hierarchy
+
+✅ Create users and groups
+
+✅ Set file permissions using chmod
+
+✅ Change file ownership with chown and chgrp
+
+⚠️ Create and manage LVM volumes (Need more practice)
+
+✅ Check network connectivity
+
+⚠️ Explain DNS, CIDR, subnetting in depth (Need revision)
+
+---
+
+### Shell Scripting
+
+✅ Variables, arguments and user input
+
+✅ If-else conditions
+
+✅ Loops (for & while)
+
+✅ Functions
+
+⚠️ grep, awk, sed, uniq (Need more practice)
+
+✅ Error handling
+
+✅ Crontab scheduling
+
+---
+
+### Git & GitHub
+
+✅ Initialize repository and commits
+
+✅ Branching
+
+✅ Push and pull
+
+✅ Clone vs Fork
+
+✅ Merge
+
+⚠️ Rebase (Need more practice)
+
+✅ Git Stash
+
+✅ Cherry Pick
+
+✅ Squash Merge
+
+✅ Git Reset & Revert
+
+✅ GitFlow, GitHub Flow, Trunk-Based Development
+
+✅ GitHub CLI
+
+---
+
+# Task 2: Topics Revisited
+
+## 1. LVM
+
+Re-learned:
+
+* Physical Volume (PV)
+* Volume Group (VG)
+* Logical Volume (LV)
+* Extending storage without repartitioning
+
+### Commands
+
+```bash
+pvs
+vgs
+lvs
+lvextend
+resize2fs
+```
+
+---
+
+## 2. Networking & CIDR
+
+Re-learned:
+
+* Public vs Private IP
+* CIDR notation
+* Subnet masks
+* Host calculations
+
+Examples:
+
+```text
+192.168.1.0/24 = 254 usable hosts
+10.0.0.0/16 = 65,534 usable hosts
+```
+
+---
+
+## 3. Git Rebase
+
+Re-learned:
+
+* Rebase creates cleaner history
+* Replays commits on top of another branch
+* Useful before merging feature branches
+
+Command:
+
+```bash
+git rebase main
+```
+
+---
+
+# Task 3: Quick Fire Questions
+
+### What does chmod 755 script.sh do?
+
+Owner gets rwx.
+Group gets r-x.
+Others get r-x.
+
+---
+
+### Difference between process and service?
+
+Process:
+A running program.
+
+Service:
+A background process managed by systemd.
+
+---
+
+### How do you find which process uses port 8080?
+
+```bash
+ss -tulpn | grep 8080
+```
+
+---
+
+### What does set -euo pipefail do?
+
+* e → Exit on error
+* u → Exit on undefined variables
+* pipefail → Fail pipeline if any command fails
+
+---
+
+### Difference between git reset --hard and git revert?
+
+git reset --hard:
+Removes commits and changes.
+
+git revert:
+Creates a new commit that undoes previous changes.
+
+---
+
+### Which branching strategy for 5 developers shipping weekly?
+
+GitHub Flow
+
+---
+
+### What does git stash do?
+
+Temporarily saves uncommitted changes.
+
+---
+
+### Schedule script daily at 3 AM?
+
+```bash
+0 3 * * * /path/script.sh
+```
+
+---
+
+### Difference between git fetch and git pull?
+
+git fetch:
+Downloads changes only.
+
+git pull:
+Downloads and merges changes.
+
+---
+
+### What is LVM?
+
+Logical Volume Manager.
+
+Provides flexible storage management and resizing.
+
+---
+
+# Task 4: Repository Verification
+
+✅ Day 01–27 pushed to GitHub
+
+✅ Git commands notes updated
+
+✅ Shell scripting cheat sheet completed
+
+✅ GitHub profile cleaned and organized
+
+---
+
+# Task 5: Teach It Back
+
+## Explaining Crontab To A Beginner
+
+Crontab is a Linux scheduler used to automate repetitive tasks.
+
+Instead of manually running commands every day, we can schedule them to run automatically.
+
+Examples include:
+
+* Daily backups
+* Log cleanup
+* Health checks
+* Automated reports
+
+A cron entry contains:
+Minute Hour Day Month Weekday Command
+
+Example:
+
+```bash
+0 3 * * * backup.sh
+```
+
+This runs backup.sh every day at 3:00 AM.
+
+---
+
+# Key Takeaways
+
+1. Linux fundamentals are becoming comfortable.
+2. Shell scripting greatly improves automation skills.
+3. Git and GitHub are essential for collaboration.
+4. Networking fundamentals are critical for DevOps troubleshooting.
+5. Consistency is more important than speed.
+
+#90DaysOfDevOps 🚀
