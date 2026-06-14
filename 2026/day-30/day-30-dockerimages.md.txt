@@ -1,0 +1,252 @@
+# Day 30 – Docker Images & Container Lifecycle 🚀
+
+## Task 1: Docker Images
+
+### Pull Images
+
+```bash
+docker pull nginx
+docker pull ubuntu
+docker pull alpine
+```
+
+### List Images
+
+```bash
+docker images
+```
+
+### Sample Output
+
+| Repository | Tag    | Size   |
+| ---------- | ------ | ------ |
+| nginx      | latest | ~192MB |
+| ubuntu     | latest | ~78MB  |
+| alpine     | latest | ~8MB   |
+
+### Ubuntu vs Alpine
+
+* Ubuntu contains many packages and utilities.
+* Alpine is a minimal Linux distribution.
+* Alpine is smaller because it contains only essential packages.
+
+### Inspect Image
+
+```bash
+docker inspect nginx
+```
+
+### Information Available
+
+* Image ID
+* Creation date
+* Environment variables
+* Entrypoint
+* Exposed ports
+* Layers
+
+### Remove Image
+
+```bash
+docker rmi ubuntu
+```
+
+---
+
+# Task 2: Image Layers
+
+### View Image History
+
+```bash
+docker image history nginx
+```
+
+### What are Layers?
+
+Docker images are built using multiple read-only layers.
+
+Benefits:
+
+* Faster downloads
+* Layer reuse
+* Reduced storage consumption
+* Faster image builds through caching
+
+Some layers show 0B because they contain metadata changes only.
+
+---
+
+# Task 3: Container Lifecycle
+
+### Create Container
+
+```bash
+docker create --name lifecycle-demo nginx
+```
+
+### Start Container
+
+```bash
+docker start lifecycle-demo
+```
+
+### Pause Container
+
+```bash
+docker pause lifecycle-demo
+```
+
+### Unpause Container
+
+```bash
+docker unpause lifecycle-demo
+```
+
+### Stop Container
+
+```bash
+docker stop lifecycle-demo
+```
+
+### Restart Container
+
+```bash
+docker restart lifecycle-demo
+```
+
+### Kill Container
+
+```bash
+docker kill lifecycle-demo
+```
+
+### Remove Container
+
+```bash
+docker rm lifecycle-demo
+```
+
+### Check Status
+
+```bash
+docker ps -a
+```
+
+---
+
+# Task 4: Working with Running Containers
+
+### Run Nginx Container
+
+```bash
+docker run -d -p 8080:80 --name nginx-demo nginx
+```
+
+### View Logs
+
+```bash
+docker logs nginx-demo
+```
+
+### Real-Time Logs
+
+```bash
+docker logs -f nginx-demo
+```
+
+### Enter Container
+
+```bash
+docker exec -it nginx-demo bash
+```
+
+### Run Command Without Entering
+
+```bash
+docker exec nginx-demo ls /
+```
+
+### Inspect Container
+
+```bash
+docker inspect nginx-demo
+```
+
+### Information Found
+
+* Container IP Address
+* Port Mapping
+* Mount Points
+* Network Configuration
+
+---
+
+# Task 5: Cleanup
+
+### Stop All Running Containers
+
+```bash
+docker stop $(docker ps -q)
+```
+
+### Remove All Stopped Containers
+
+```bash
+docker container prune -f
+```
+
+### Remove Unused Images
+
+```bash
+docker image prune -a
+```
+
+### Check Docker Disk Usage
+
+```bash
+docker system df
+```
+
+### Full Cleanup
+
+```bash
+docker system prune -a
+```
+
+---
+
+# Commands Practiced
+
+```bash
+docker pull nginx
+docker pull ubuntu
+docker pull alpine
+docker images
+docker image history nginx
+docker create nginx
+docker start nginx
+docker pause nginx
+docker unpause nginx
+docker stop nginx
+docker restart nginx
+docker kill nginx
+docker rm nginx
+docker logs nginx
+docker logs -f nginx
+docker exec -it nginx bash
+docker inspect nginx
+docker system df
+docker system prune -a
+```
+
+---
+
+# What I Learned
+
+1. Docker images are templates used to create containers.
+2. Image layers help optimize storage and speed up builds.
+3. Containers move through different lifecycle states like created, running, paused, stopped, and removed.
+4. Docker logs and inspect commands are essential for troubleshooting.
+5. Docker cleanup commands help reclaim unused storage.
+
+#90DaysOfDevOps 🚀
