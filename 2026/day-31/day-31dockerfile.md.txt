@@ -1,0 +1,308 @@
+# Day 31 – Dockerfile: Build Your Own Images 🚀
+
+## Task 1: My First Dockerfile
+
+### Dockerfile
+
+```dockerfile
+FROM ubuntu
+
+RUN apt-get update && apt-get install -y curl
+
+CMD ["echo", "Hello from my custom image!"]
+```
+
+### Build Image
+
+```bash
+docker build -t my-ubuntu:v1 .
+```
+
+### Run Container
+
+```bash
+docker run my-ubuntu:v1
+```
+
+### Output
+
+```text
+Hello from my custom image!
+```
+
+---
+
+# Task 2: Dockerfile Instructions
+
+### Project Structure
+
+```text
+docker-demo/
+├── Dockerfile
+└── app.txt
+```
+
+### app.txt
+
+```text
+Hello Docker
+```
+
+### Dockerfile
+
+```dockerfile
+FROM ubuntu
+
+RUN apt-get update
+
+WORKDIR /app
+
+COPY app.txt .
+
+EXPOSE 8080
+
+CMD ["cat", "app.txt"]
+```
+
+### Build
+
+```bash
+docker build -t docker-demo:v1 .
+```
+
+### Run
+
+```bash
+docker run docker-demo:v1
+```
+
+### Dockerfile Instructions Explained
+
+| Instruction | Purpose                       |
+| ----------- | ----------------------------- |
+| FROM        | Base Image                    |
+| RUN         | Execute commands during build |
+| COPY        | Copy files into image         |
+| WORKDIR     | Set working directory         |
+| EXPOSE      | Document application port     |
+| CMD         | Default container command     |
+
+---
+
+# Task 3: CMD vs ENTRYPOINT
+
+## CMD Example
+
+```dockerfile
+FROM ubuntu
+
+CMD ["echo","hello"]
+```
+
+Run:
+
+```bash
+docker run cmd-demo
+```
+
+Output:
+
+```text
+hello
+```
+
+Override CMD:
+
+```bash
+docker run cmd-demo ls
+```
+
+Result:
+
+```text
+CMD replaced by ls
+```
+
+---
+
+## ENTRYPOINT Example
+
+```dockerfile
+FROM ubuntu
+
+ENTRYPOINT ["echo"]
+```
+
+Run:
+
+```bash
+docker run entry-demo hello
+```
+
+Output:
+
+```text
+hello
+```
+
+### CMD vs ENTRYPOINT
+
+CMD:
+
+* Default command
+* Can be overridden
+
+ENTRYPOINT:
+
+* Fixed executable
+* Additional arguments appended
+
+Use CMD for defaults.
+Use ENTRYPOINT for dedicated tools or utilities.
+
+---
+
+# Task 4: Static Website with Nginx
+
+### index.html
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<title>Day 31 Docker</title>
+</head>
+<body>
+<h1>Welcome to My Docker Website 🚀</h1>
+</body>
+</html>
+```
+
+### Dockerfile
+
+```dockerfile
+FROM nginx:alpine
+
+COPY index.html /usr/share/nginx/html/index.html
+```
+
+### Build
+
+```bash
+docker build -t my-website:v1 .
+```
+
+### Run
+
+```bash
+docker run -d -p 8080:80 my-website:v1
+```
+
+Access:
+
+```text
+http://localhost:8080
+```
+
+---
+
+# Task 5: .dockerignore
+
+### .dockerignore
+
+```text
+node_modules
+.git
+*.md
+.env
+```
+
+### Benefit
+
+Ignored files are not copied into build context.
+
+Benefits:
+
+* Faster builds
+* Smaller images
+* Better security
+
+---
+
+# Task 6: Build Optimization
+
+### Initial Build
+
+```bash
+docker build -t cache-demo:v1 .
+```
+
+### Rebuild
+
+```bash
+docker build -t cache-demo:v2 .
+```
+
+Docker reused unchanged layers from cache.
+
+### Why Layer Order Matters
+
+Best Practice:
+
+```dockerfile
+FROM node:18
+
+COPY package.json .
+
+RUN npm install
+
+COPY . .
+```
+
+Reason:
+
+* Dependencies rarely change.
+* Source code changes frequently.
+* Docker reuses cached dependency layer.
+
+Result:
+
+* Faster builds
+* Less network usage
+* Better CI/CD performance
+
+---
+
+# Commands Practiced
+
+```bash
+docker build -t my-ubuntu:v1 .
+
+docker run my-ubuntu:v1
+
+docker build -t docker-demo:v1 .
+
+docker run docker-demo:v1
+
+docker build -t my-website:v1 .
+
+docker run -d -p 8080:80 my-website:v1
+
+docker images
+
+docker ps
+
+docker logs <container-id>
+```
+
+---
+
+# What I Learned
+
+1. Dockerfiles define how images are built.
+2. Images are created layer by layer.
+3. CMD and ENTRYPOINT serve different purposes.
+4. Nginx can be used to host static websites easily.
+5. Proper layer ordering improves build performance.
+
+#90DaysOfDevOps 🚀
