@@ -1,0 +1,338 @@
+# Day 32 – Docker Volumes & Networking 🚀
+
+## Task 1: The Problem – Data Persistence
+
+### Run PostgreSQL Container
+
+```bash
+docker run -d \
+--name postgres-db \
+-e POSTGRES_PASSWORD=admin123 \
+-p 5432:5432 \
+postgres
+```
+
+### Create Sample Data
+
+```bash
+docker exec -it postgres-db psql -U postgres
+```
+
+```sql
+CREATE TABLE employees(
+id SERIAL PRIMARY KEY,
+name VARCHAR(50)
+);
+
+INSERT INTO employees(name)
+VALUES ('Apurv');
+
+SELECT * FROM employees;
+```
+
+### Remove Container
+
+```bash
+docker stop postgres-db
+docker rm postgres-db
+```
+
+### Create New Container
+
+```bash
+docker run -d \
+--name postgres-db-new \
+-e POSTGRES_PASSWORD=admin123 \
+-p 5432:5432 \
+postgres
+```
+
+### Observation
+
+The table and data were lost.
+
+### Why?
+
+Containers are ephemeral.
+Data stored inside the container filesystem is deleted when the container is removed.
+
+---
+
+# Task 2: Named Volumes
+
+### Create Volume
+
+```bash
+docker volume create postgres-data
+```
+
+### Verify
+
+```bash
+docker volume ls
+```
+
+### Run PostgreSQL With Volume
+
+```bash
+docker run -d \
+--name postgres-vol \
+-e POSTGRES_PASSWORD=admin123 \
+-v postgres-data:/var/lib/postgresql/data \
+postgres
+```
+
+### Add Data
+
+```sql
+CREATE TABLE devops(
+id SERIAL PRIMARY KEY,
+tool VARCHAR(50)
+);
+
+INSERT INTO devops(tool)
+VALUES ('Docker');
+```
+
+### Remove Container
+
+```bash
+docker stop postgres-vol
+docker rm postgres-vol
+```
+
+### Run New Container Using Same Volume
+
+```bash
+docker run -d \
+--name postgres-vol-new \
+-e POSTGRES_PASSWORD=admin123 \
+-v postgres-data:/var/lib/postgresql/data \
+postgres
+```
+
+### Observation
+
+Data still exists.
+
+### Verify Volume
+
+```bash
+docker volume ls
+
+docker volume inspect postgres-data
+```
+
+---
+
+# Task 3: Bind Mounts
+
+### Create Host Folder
+
+```bash
+mkdir website
+
+cd website
+```
+
+### Create HTML File
+
+```html
+<h1>Docker Bind Mount Demo 🚀</h1>
+```
+
+### Run Nginx
+
+```bash
+docker run -d \
+--name nginx-bind \
+-p 8080:80 \
+-v $(pwd):/usr/share/nginx/html \
+nginx
+```
+
+### Access Website
+
+```text
+http://localhost:8080
+```
+
+### Edit index.html
+
+Refresh browser.
+
+Changes appear instantly.
+
+### Named Volume vs Bind Mount
+
+| Named Volume         | Bind Mount             |
+| -------------------- | ---------------------- |
+| Managed by Docker    | Managed by Host OS     |
+| Better for databases | Better for development |
+| Stored inside Docker | Uses host filesystem   |
+| Portable             | Host dependent         |
+
+---
+
+# Task 4: Docker Networking Basics
+
+### List Networks
+
+```bash
+docker network ls
+```
+
+### Inspect Bridge Network
+
+```bash
+docker network inspect bridge
+```
+
+### Run Containers
+
+```bash
+docker run -dit --name container1 ubuntu
+docker run -dit --name container2 ubuntu
+```
+
+### Ping Using IP
+
+```bash
+docker inspect container2
+```
+
+```bash
+docker exec -it container1 ping <container2-ip>
+```
+
+Result:
+Success ✅
+
+### Ping Using Name
+
+```bash
+docker exec -it container1 ping container2
+```
+
+Result:
+Failed ❌
+
+---
+
+# Task 5: Custom Networks
+
+### Create Network
+
+```bash
+docker network create my-app-net
+```
+
+### Run Containers
+
+```bash
+docker run -dit \
+--network my-app-net \
+--name app1 ubuntu
+```
+
+```bash
+docker run -dit \
+--network my-app-net \
+--name app2 ubuntu
+```
+
+### Ping By Name
+
+```bash
+docker exec -it app1 ping app2
+```
+
+Result:
+Success ✅
+
+### Why?
+
+Custom bridge networks provide built-in DNS resolution.
+
+Containers can communicate using container names.
+
+---
+
+# Task 6: Database + App Network
+
+### Create Network
+
+```bash
+docker network create devops-net
+```
+
+### Run Database
+
+```bash
+docker run -d \
+--name postgres-db \
+--network devops-net \
+-v postgres-data:/var/lib/postgresql/data \
+-e POSTGRES_PASSWORD=admin123 \
+postgres
+```
+
+### Run App Container
+
+```bash
+docker run -dit \
+--name app-container \
+--network devops-net \
+ubuntu
+```
+
+### Verify Connectivity
+
+```bash
+docker exec -it app-container ping postgres-db
+```
+
+Result:
+Success ✅
+
+---
+
+# Commands Practiced
+
+```bash
+docker volume create postgres-data
+
+docker volume ls
+
+docker volume inspect postgres-data
+
+docker network ls
+
+docker network inspect bridge
+
+docker network create my-app-net
+
+docker run -d postgres
+
+docker run -d nginx
+
+docker exec -it container bash
+
+docker inspect container
+
+docker stop container
+
+docker rm container
+```
+
+---
+
+# What I Learned
+
+1. Containers lose data when removed unless volumes are used.
+2. Named volumes provide persistent storage.
+3. Bind mounts connect host files directly to containers.
+4. Docker networks allow communication between containers.
+5. Custom bridge networks provide automatic DNS-based name resolution.
+
+#90DaysOfDevOps 🚀
