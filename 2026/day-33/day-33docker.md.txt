@@ -1,0 +1,218 @@
+
+# Day 33 – Docker Compose: Multi-Container Basics
+
+## Task 1: Verify Docker Compose
+
+```bash
+docker compose version
+docker --version
+```
+
+---
+
+## Task 2: Single Nginx Container
+
+### Create Project
+
+```bash
+mkdir compose-basics
+cd compose-basics
+```
+
+### docker-compose.yml
+
+```yaml
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx-compose
+    ports:
+      - "8080:80"
+```
+
+### Start Service
+
+```bash
+docker compose up -d
+```
+
+### Check Running Containers
+
+```bash
+docker compose ps
+```
+
+### Open Browser
+
+```text
+http://localhost:8080
+```
+
+### Stop Service
+
+```bash
+docker compose down
+```
+
+---
+
+## Task 3: WordPress + MySQL
+
+### docker-compose.yml
+
+```yaml
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wpuser
+      MYSQL_PASSWORD: wp123
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  wordpress:
+    image: wordpress:latest
+    container_name: wordpress-app
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wpuser
+      WORDPRESS_DB_PASSWORD: wp123
+      WORDPRESS_DB_NAME: wordpress
+    depends_on:
+      - db
+
+volumes:
+  mysql_data:
+```
+
+### Start Application
+
+```bash
+docker compose up -d
+```
+
+### Verify
+
+```bash
+docker compose ps
+docker compose logs
+```
+
+Open:
+
+```text
+http://localhost:8081
+```
+
+---
+
+## Task 4: Docker Compose Commands
+
+### Start Detached
+
+```bash
+docker compose up -d
+```
+
+### View Running Services
+
+```bash
+docker compose ps
+```
+
+### View All Logs
+
+```bash
+docker compose logs
+```
+
+### Follow Logs
+
+```bash
+docker compose logs -f
+```
+
+### Specific Service Logs
+
+```bash
+docker compose logs wordpress
+docker compose logs db
+```
+
+### Stop Services
+
+```bash
+docker compose stop
+```
+
+### Remove Containers & Network
+
+```bash
+docker compose down
+```
+
+### Rebuild Images
+
+```bash
+docker compose up --build -d
+```
+
+---
+
+## Task 5: Environment Variables
+
+### .env File
+
+```env
+MYSQL_ROOT_PASSWORD=root123
+MYSQL_DATABASE=wordpress
+MYSQL_USER=wpuser
+MYSQL_PASSWORD=wp123
+```
+
+### Use Variables
+
+```yaml
+environment:
+  MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+  MYSQL_DATABASE: ${MYSQL_DATABASE}
+  MYSQL_USER: ${MYSQL_USER}
+  MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+```
+
+### Verify
+
+```bash
+docker compose config
+```
+
+---
+
+## Commands Practiced
+
+```bash
+docker compose version
+docker compose up -d
+docker compose ps
+docker compose logs
+docker compose logs -f
+docker compose stop
+docker compose down
+docker compose config
+docker compose up --build -d
+```
+
+## What I Learned
+
+* Docker Compose helps manage multi-container applications using a single YAML file.
+* Services in Docker Compose communicate using service names automatically.
+* Named volumes provide persistent storage for databases.
+* Environment variables make Compose files reusable and secure.
+* Docker Compose simplifies networking, storage, and container management.
