@@ -1,0 +1,175 @@
+# Day 34 – Docker Compose: Real-World Multi-Container Apps
+
+## Objective
+
+Learn how to build and manage production-like multi-container applications using Docker Compose, custom Dockerfiles, health checks, restart policies, networks, and volumes.
+
+---
+
+## Project Architecture
+
+Three-Service Application Stack:
+
+1. Web Application (Flask App)
+2. PostgreSQL Database
+3. Redis Cache
+
+```text
+User
+  |
+  v
+Web App (Flask)
+  |      \
+  |       \
+  v        v
+PostgreSQL  Redis
+```
+
+---
+
+## Docker Compose Features Used
+
+* Multi-container deployment
+* Custom Dockerfile build
+* Named volumes
+* Custom bridge network
+* Health checks
+* Service dependencies
+* Restart policies
+* Environment variables
+
+---
+
+## Commands Used
+
+### Build and Start Services
+
+```bash
+docker compose up -d --build
+```
+
+### View Running Containers
+
+```bash
+docker compose ps
+```
+
+### View Logs
+
+```bash
+docker compose logs
+```
+
+### Stop Services
+
+```bash
+docker compose down
+```
+
+### Rebuild After Code Changes
+
+```bash
+docker compose up --build -d
+```
+
+### Scale Web Application
+
+```bash
+docker compose up --scale web=3 -d
+```
+
+### View Networks
+
+```bash
+docker network ls
+```
+
+### View Volumes
+
+```bash
+docker volume ls
+```
+
+---
+
+## Health Check Configuration
+
+The PostgreSQL container was configured with a health check to ensure the database is ready before the application starts.
+
+Benefits:
+
+* Prevents application startup failures
+* Ensures service readiness
+* Improves reliability
+
+---
+
+## Restart Policies
+
+### restart: always
+
+* Container automatically restarts after failure
+* Restarts after Docker daemon reboot
+
+### restart: on-failure
+
+* Restarts only when the container exits with an error
+
+---
+
+## Named Volumes
+
+Used named volumes to persist PostgreSQL data.
+
+Benefits:
+
+* Data survives container recreation
+* Easy backup and recovery
+* Better production practice
+
+---
+
+## Custom Network
+
+Created a dedicated Docker bridge network.
+
+Benefits:
+
+* Secure communication between services
+* Service discovery using container names
+* Better network isolation
+
+---
+
+## Scaling Observation
+
+Command used:
+
+```bash
+docker compose up --scale web=3 -d
+```
+
+Observation:
+
+* Multiple web containers were created.
+* Port conflicts can occur when multiple containers try to use the same host port.
+* In production, load balancers are typically used to distribute traffic across replicas.
+
+---
+
+## What I Learned
+
+1. Docker Compose simplifies multi-container deployments.
+2. Health checks help ensure service readiness.
+3. Named volumes provide persistent storage.
+4. Custom networks enable service-to-service communication.
+5. Restart policies improve application reliability.
+6. Scaling containers requires proper traffic management.
+
+---
+
+## Conclusion
+
+Day 34 helped me understand how real-world applications are deployed using Docker Compose with databases, caching systems, networking, persistent storage, health monitoring, and scaling concepts.
+
+#90DaysOfDevOps 🚀
