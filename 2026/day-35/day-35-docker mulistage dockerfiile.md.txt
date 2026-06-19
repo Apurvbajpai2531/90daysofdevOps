@@ -1,0 +1,134 @@
+# Day 35 – Multi-Stage Builds & Docker Hub
+
+## Objective
+
+Learn how to optimize Docker images using Multi-Stage Builds and publish images to Docker Hub.
+
+## Task 1: Single-Stage Docker Build
+
+### Dockerfile
+
+```dockerfile
+FROM node:18
+
+WORKDIR /app
+
+COPY . .
+
+RUN npm install
+
+CMD ["node", "app.js"]
+```
+
+### Image Size
+
+* Single-stage image size: ~942 MB
+
+### Observation
+
+The image contains source code, dependencies, build tools, cache files, and unnecessary layers.
+
+---
+
+## Task 2: Multi-Stage Build
+
+### Dockerfile
+
+```dockerfile
+# Build Stage
+FROM node:18 AS builder
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+
+# Production Stage
+FROM node:18-alpine
+
+WORKDIR /app
+
+COPY --from=builder /app .
+
+CMD ["node", "app.js"]
+```
+
+### Image Size
+
+* Multi-stage image size: ~133 MB
+
+### Why Is It Smaller?
+
+* Build dependencies are not copied.
+* Cache files are excluded.
+* Uses Alpine Linux as the final lightweight image.
+* Only required application files are included.
+
+---
+
+## Task 3: Docker Hub
+
+### Login
+
+```bash
+docker login
+```
+
+### Tag Image
+
+```bash
+docker tag myapp:latest apurvbajpai2531/myapp:v1
+```
+
+### Push Image
+
+```bash
+docker push apurvbajpai2531/myapp:v1
+```
+
+### Pull Image
+
+```bash
+docker pull apurvbajpai2531/myapp:v1
+```
+
+---
+
+## Task 4: Image Best Practices
+
+### Applied Best Practices
+
+* Used Alpine base image
+* Used Multi-Stage Builds
+* Used specific image tags
+* Reduced image layers
+* Avoided unnecessary files
+
+### Benefits
+
+* Faster deployments
+* Reduced storage usage
+* Improved security
+* Better CI/CD performance
+
+---
+
+## What I Learned
+
+1. Multi-stage builds dramatically reduce Docker image size.
+2. Docker Hub helps distribute container images efficiently.
+3. Smaller images improve deployment speed and security.
+
+## Commands Used
+
+```bash
+docker build -t myapp:v1 .
+docker images
+docker image history myapp:v1
+docker login
+docker tag myapp:v1 apurvbajpai2531/myapp:v1
+docker push apurvbajpai2531/myapp:v1
+docker pull apurvbajpai2531/myapp:v1
+```
