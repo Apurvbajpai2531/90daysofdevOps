@@ -1,0 +1,95 @@
+# Day 37 – Docker Revision
+
+## ✅ Self Assessment
+
+| Topic                 | Status   |
+| --------------------- | -------- |
+| Run Docker containers | ✅ Can Do |
+| Manage Images         | ✅ Can Do |
+| Dockerfile            | ✅ Can Do |
+| CMD vs ENTRYPOINT     | ✅ Can Do |
+| Docker Volumes        | ✅ Can Do |
+| Bind Mounts           | ✅ Can Do |
+| Docker Networks       | ✅ Can Do |
+| Docker Compose        | ✅ Can Do |
+| Environment Variables | ✅ Can Do |
+| Multi-Stage Builds    | ✅ Can Do |
+| Docker Hub            | ✅ Can Do |
+| Healthchecks          | ✅ Can Do |
+
+---
+
+# Quick Fire Answers
+
+### 1. Difference between Image and Container?
+
+An Image is a read-only template, while a Container is a running instance of that image.
+
+---
+
+### 2. What happens to data after removing a container?
+
+Container data is lost unless it is stored in a Docker Volume or Bind Mount.
+
+---
+
+### 3. How do containers communicate?
+
+Containers connected to the same custom Docker network communicate using their container or service names.
+
+---
+
+### 4. Difference between `docker compose down` and `docker compose down -v`
+
+* `docker compose down` removes containers and networks.
+* `docker compose down -v` also removes named volumes.
+
+---
+
+### 5. Why use Multi-Stage Builds?
+
+To create smaller, faster, and more secure production images by excluding unnecessary build dependencies.
+
+---
+
+### 6. Difference between COPY and ADD?
+
+* COPY copies files.
+* ADD can also download URLs and extract compressed archives.
+
+---
+
+### 7. What does `-p 8080:80` mean?
+
+Maps Host Port **8080** to Container Port **80**.
+
+---
+
+### 8. How do you check Docker disk usage?
+
+```bash
+docker system df
+```
+
+---
+
+# Topics Revisited
+
+* Docker Networking
+* Multi-Stage Docker Builds
+
+---
+
+# Key Takeaways
+
+* Docker Volumes preserve data after container deletion.
+* Docker Compose simplifies multi-container deployments.
+* Multi-Stage Builds reduce image size significantly.
+* Custom Docker Networks enable service discovery.
+* Docker Hub makes image sharing easy.
+
+---
+
+# Revision Completed ✅
+
+Ready to move on to Kubernetes and advanced container orchestration.
