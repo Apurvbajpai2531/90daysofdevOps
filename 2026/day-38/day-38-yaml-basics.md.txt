@@ -1,0 +1,156 @@
+# Day 38 – YAML Basics
+
+## Objective
+
+Learn the fundamentals of YAML syntax by creating, organizing, and validating YAML files.
+
+---
+
+# Files Created
+
+* person.yaml
+* server.yaml
+
+---
+
+# Task 1 – Key Value Pairs
+
+Created a YAML file describing myself using key-value pairs.
+
+Fields included:
+
+* name
+* role
+* experience_years
+* learning
+
+---
+
+# Task 2 – Lists
+
+Added two types of lists:
+
+### Block Style
+
+```yaml
+tools:
+  - Linux
+  - Git
+  - Docker
+  - Kubernetes
+  - Jenkins
+```
+
+### Inline Style
+
+```yaml
+hobbies: [Coding, Learning, Reading, Cricket]
+```
+
+### Observation
+
+YAML supports:
+
+* Block Lists (`- item`)
+* Inline Lists (`[item1, item2]`)
+
+---
+
+# Task 3 – Nested Objects
+
+Created nested objects describing a server and its database.
+
+Nested fields included:
+
+* Server Details
+* Database Details
+* Credentials
+
+---
+
+# Task 4 – Multi-line Strings
+
+Used two styles:
+
+### Pipe (`|`)
+
+Preserves line breaks exactly.
+
+Best used for:
+
+* Shell Scripts
+* Configuration Files
+* Certificates
+
+### Folded (`>`)
+
+Converts multiple lines into one paragraph.
+
+Best used for:
+
+* Long descriptions
+* Documentation
+* Comments
+
+---
+
+# Task 5 – YAML Validation
+
+Validated YAML using **yamllint**.
+
+### Common Error
+
+Using **Tabs** instead of **Spaces**.
+
+Example Error:
+
+```text
+found character '\t' that cannot start any token
+```
+
+After replacing tabs with spaces, validation passed successfully.
+
+---
+
+# Task 6 – Spot the Difference
+
+Correct YAML:
+
+```yaml
+tools:
+  - docker
+  - kubernetes
+```
+
+Incorrect YAML:
+
+```yaml
+tools:
+- docker
+  - kubernetes
+```
+
+### Issue
+
+Improper indentation makes the YAML invalid.
+
+---
+
+# What I Learned
+
+* YAML uses spaces instead of tabs.
+* Proper indentation is essential for valid YAML.
+* Nested objects and lists make YAML clean and readable.
+* `|` preserves line breaks, while `>` folds text into a single line.
+* YAML is widely used in Docker Compose, Kubernetes, GitHub Actions, Ansible, and CI/CD pipelines.
+
+---
+
+# Commands Used
+
+```bash
+cat person.yaml
+cat server.yaml
+yamllint person.yaml
+yamllint server.yaml
+```
