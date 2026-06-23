@@ -1,0 +1,123 @@
+# Day 39 – What is CI/CD?
+
+## Objective
+
+Understand the fundamentals of Continuous Integration (CI), Continuous Delivery (CD), and Continuous Deployment (CD) before building real-world pipelines.
+
+---
+
+# Task 1 – The Problem
+
+### What can go wrong with manual deployments?
+
+* Different developers may have different environments.
+* Human errors during deployment.
+* Merge conflicts.
+* Failed deployments due to missed steps.
+* Longer release cycles.
+
+### What does "It works on my machine" mean?
+
+It means the application works correctly on the developer's local system but fails on another machine because of differences in dependencies, operating systems, environment variables, or configurations.
+
+### How many times can a team safely deploy manually?
+
+Manual deployments are usually slow and error-prone. Most teams can safely deploy only a few times a day. CI/CD automates this process and enables frequent, reliable deployments.
+
+---
+
+# Task 2 – CI vs CD
+
+## Continuous Integration (CI)
+
+Developers frequently merge their code into a shared repository. Every push automatically triggers builds and tests to detect issues early.
+
+**Example:** GitHub Actions automatically runs tests whenever code is pushed.
+
+---
+
+## Continuous Delivery (CD)
+
+After CI succeeds, the application is automatically prepared for deployment. Production deployment still requires manual approval.
+
+**Example:** Docker image is built automatically and waits for approval before deployment.
+
+---
+
+## Continuous Deployment
+
+Every successful build is automatically deployed to production without manual intervention.
+
+**Example:** Modern SaaS platforms continuously release updates after all tests pass.
+
+---
+
+# Task 3 – Pipeline Anatomy
+
+| Component | Description                                             |
+| --------- | ------------------------------------------------------- |
+| Trigger   | Starts the pipeline (Push, Pull Request, Schedule)      |
+| Stage     | Logical phase like Build, Test, Deploy                  |
+| Job       | Collection of related tasks within a stage              |
+| Step      | A single command or action                              |
+| Runner    | Machine that executes the workflow                      |
+| Artifact  | Output produced by a job (Docker Image, ZIP, JAR, etc.) |
+
+---
+
+# Task 4 – CI/CD Pipeline
+
+```text
+Developer
+    │
+    ▼
+Git Push
+    │
+    ▼
+GitHub Repository
+    │
+    ▼
+GitHub Actions
+    │
+    ▼
+Build
+    │
+    ▼
+Test
+    │
+    ▼
+Docker Build
+    │
+    ▼
+Deploy to Staging
+```
+
+---
+
+# Task 5 – Open Source Workflow
+
+Repository Explored:
+Spring Petclinic
+
+### Trigger
+
+* Push
+* Pull Request
+
+### Jobs
+
+* Build
+* Test
+
+### Purpose
+
+Automatically builds the application, executes tests, and validates code before merging.
+
+---
+
+# What I Learned
+
+* CI helps detect bugs early through automated testing.
+* CD automates software delivery and deployment.
+* Pipelines improve software quality, consistency, and deployment speed.
+* Automation reduces manual effort and deployment failures.
