@@ -1,0 +1,138 @@
+# Day 40 – My First GitHub Actions Workflow
+
+## Objective
+
+Learn how to create and execute a basic GitHub Actions workflow using GitHub Actions.
+
+---
+
+# Workflow File
+
+**Path:**
+
+```text
+.github/workflows/hello.yml
+```
+
+## Workflow YAML
+
+```yaml
+name: My First GitHub Actions Workflow
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Print Greeting
+        run: echo "👋 Hello from GitHub Actions!"
+
+      - name: Show Current Date & Time
+        run: date
+
+      - name: Show Branch Name
+        run: echo "Branch: ${{ github.ref_name }}"
+
+      - name: Show Runner Operating System
+        run: echo "Runner OS: $RUNNER_OS"
+
+      - name: List Repository Files
+        run: ls -la
+```
+
+---
+
+# Workflow Features
+
+* Trigger on every push
+* Checkout repository
+* Print greeting message
+* Display current date and time
+* Display branch name
+* List repository files
+* Display runner operating system
+
+---
+
+# Workflow Anatomy
+
+### `name`
+
+Defines the name of the workflow displayed in the GitHub Actions tab.
+
+### `on`
+
+Specifies the event that triggers the workflow (Push).
+
+### `jobs`
+
+Defines one or more jobs to execute.
+
+### `runs-on`
+
+Specifies the GitHub-hosted runner operating system.
+
+### `steps`
+
+A sequence of actions or commands executed within a job.
+
+### `uses`
+
+Runs a reusable GitHub Action.
+
+### `run`
+
+Executes shell commands directly on the runner.
+
+---
+
+# Failed Workflow
+
+To understand workflow failures, I intentionally added the following step:
+
+```yaml
+- name: Break the Workflow
+  run: exit 1
+```
+
+### Result
+
+* The workflow failed with a red ❌ status.
+* GitHub Actions stopped execution at the failed step.
+* The logs clearly showed the failing command and its exit code.
+
+After removing the failing step and pushing the changes again, the workflow completed successfully with a green ✅ status.
+
+---
+
+# Screenshots
+
+* ✅ Successful (Green) Workflow Run
+* ❌ Failed Workflow Run
+* 📄 GitHub Actions Logs
+
+---
+
+# What I Learned
+
+* GitHub Actions automatically executes workflows after every push.
+* Workflow files are written in YAML.
+* Each workflow consists of jobs and steps.
+* A failed step immediately stops the workflow.
+* GitHub Actions provides built-in variables such as `${{ github.ref_name }}` and `$RUNNER_OS`.
+* Reading workflow logs is essential for debugging CI/CD pipelines.
+
+---
+
+# Conclusion
+
+Day 40 marked my first hands-on experience with GitHub Actions. I successfully created, executed, debugged, and understood a basic CI workflow. This lays the foundation for building more advanced CI/CD pipelines in the upcoming days.
