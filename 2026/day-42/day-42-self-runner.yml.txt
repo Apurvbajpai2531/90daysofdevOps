@@ -1,0 +1,122 @@
+# Day 42 – GitHub Actions Runners (GitHub-Hosted & Self-Hosted)
+
+## 🎯 Objective
+
+The goal of Day 42 was to understand how GitHub Actions workflows are executed using **runners**. I explored both **GitHub-hosted** and **Self-hosted** runners and learned how each is used in CI/CD pipelines.
+
+---
+
+# Task 1 – GitHub-Hosted Runners
+
+Created a workflow that executes jobs on three different operating systems:
+
+* Ubuntu (`ubuntu-latest`)
+* Windows (`windows-latest`)
+* macOS (`macos-latest`)
+
+Each job prints:
+
+* Operating System
+* Hostname
+* Current User
+
+### What I Learned
+
+* GitHub automatically provisions virtual machines.
+* Multiple jobs can run in parallel.
+* No infrastructure management is required.
+
+---
+
+# Task 2 – Explore Pre-installed Tools
+
+Verified tools available on the Ubuntu runner.
+
+Checked versions of:
+
+* Docker
+* Python
+* Node.js
+* Git
+
+### Why This Matters
+
+GitHub-hosted runners come with many commonly used development tools pre-installed, reducing setup time and speeding up CI workflows.
+
+---
+
+# Task 3 – Self-Hosted Runner
+
+Attempted to configure a self-hosted runner using the provided setup instructions.
+
+### Steps Performed
+
+* Downloaded the GitHub Actions Runner package.
+* Verified the package checksum.
+* Extracted the runner files.
+* Started the configuration process.
+
+### Issue Encountered
+
+The self-hosted runner could not start because the execution environment (TrainWithShubham Playground) is restricted.
+
+Observed limitations:
+
+* No `sudo` access
+* Missing ICU (.NET) dependencies
+* Unable to install required packages
+
+Because of these restrictions, the runner could not be started successfully.
+
+---
+
+# Task 4 – Self-Hosted Workflow
+
+Created a workflow using:
+
+```yaml
+runs-on: self-hosted
+```
+
+This workflow is ready to execute once a self-hosted runner is configured on a local machine or cloud VM.
+
+---
+
+# GitHub-Hosted vs Self-Hosted
+
+| Feature             | GitHub-Hosted                | Self-Hosted                               |
+| ------------------- | ---------------------------- | ----------------------------------------- |
+| Managed By          | GitHub                       | User                                      |
+| Infrastructure      | Managed by GitHub            | Managed by User                           |
+| Cost                | Included with GitHub minutes | User pays for infrastructure              |
+| Pre-installed Tools | Yes                          | User installs required tools              |
+| Maintenance         | None                         | User is responsible                       |
+| Best For            | General CI/CD                | Custom environments, enterprise workloads |
+| Security            | GitHub-managed               | User-managed                              |
+
+---
+
+# Key Learnings
+
+* Every GitHub Actions workflow requires a runner.
+* GitHub-hosted runners are quick and easy to use.
+* Self-hosted runners provide complete control over the execution environment.
+* Infrastructure and system dependencies are important when configuring self-hosted runners.
+* Understanding runners is essential before building production CI/CD pipelines.
+
+---
+
+## Repository Structure
+
+```text
+.github/
+└── workflows/
+    ├── runners.yml
+    └── self-hosted.yml
+```
+
+---
+
+## Conclusion
+
+Day 42 provided a practical understanding of GitHub Actions runners and how workflows execute behind the scenes. While GitHub-hosted runners worked successfully, the self-hosted runner setup highlighted the importance of having a properly configured execution environment. This knowledge is fundamental for building reliable CI/CD pipelines in real-world DevOps projects.

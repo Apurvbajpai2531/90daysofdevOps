@@ -1,0 +1,192 @@
+# Day 41 – Triggers & Matrix Builds
+
+## Objective
+
+Learn different ways to trigger GitHub Actions workflows and use Matrix Builds to execute jobs across multiple environments.
+
+---
+
+# Task 1 – Pull Request Trigger
+
+## File
+
+```text
+.github/workflows/pr-check.yml
+```
+
+```yaml
+name: Pull Request Check
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  pr-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Print PR Branch
+        run: echo "PR check running for branch: ${{ github.head_ref }}"
+```
+
+---
+
+# Task 2 – Scheduled Workflow
+
+## File
+
+```text
+.github/workflows/schedule.yml
+```
+
+```yaml
+name: Scheduled Workflow
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  schedule-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: echo "Running scheduled workflow..."
+```
+
+### Cron Expressions
+
+| Schedule                    | Cron        |
+| --------------------------- | ----------- |
+| Every day at midnight UTC   | `0 0 * * *` |
+| Every Monday at 9:00 AM UTC | `0 9 * * 1` |
+
+---
+
+# Task 3 – Manual Workflow
+
+## File
+
+```text
+.github/workflows/manual.yml
+```
+
+```yaml
+name: Manual Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Enter Environment"
+        required: true
+        default: "staging"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: echo "Deploying to ${{ github.event.inputs.environment }}"
+```
+
+---
+
+# Task 4 – Matrix Build
+
+## File
+
+```text
+.github/workflows/matrix.yml
+```
+
+```yaml
+name: Matrix Build
+
+on:
+  push:
+
+jobs:
+  matrix-job:
+    strategy:
+      fail-fast: false
+
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+
+        python-version:
+          - "3.10"
+          - "3.11"
+          - "3.12"
+
+        exclude:
+          - os: windows-latest
+            python-version: "3.10"
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - run: python --version
+```
+
+### Matrix Result
+
+Without exclusion:
+
+* Ubuntu × 3 versions
+* Windows × 3 versions
+
+Total = **6 Jobs**
+
+After excluding Windows + Python 3.10
+
+Total = **5 Jobs**
+
+---
+
+# fail-fast
+
+## fail-fast: true (Default)
+
+If one matrix job fails, the remaining jobs are cancelled.
+
+## fail-fast: false
+
+All jobs continue executing even if one fails.
+
+---
+
+# Screenshots
+
+* Pull Request workflow
+* Manual workflow execution
+* Scheduled workflow
+* Matrix build (parallel jobs)
+
+---
+
+# What I Learned
+
+* GitHub Actions supports Push, Pull Request, Schedule, and Manual triggers.
+* Matrix builds execute the same workflow across multiple operating systems and language versions simultaneously.
+* Cron expressions automate recurring workflows.
+* Manual workflows allow runtime input using `workflow_dispatch`.
+* `fail-fast: false` ensures every matrix job completes even if one fails.
+
+---
+
+# Conclusion
+
+Day 41 introduced advanced GitHub Actions triggers and Matrix Builds. These features make CI pipelines more flexible by supporting automated schedules, manual execution, pull request validation, and multi-environment testing.
