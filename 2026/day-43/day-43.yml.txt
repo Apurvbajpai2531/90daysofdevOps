@@ -1,0 +1,109 @@
+# Day 43 – Jobs, Steps, Environment Variables & Conditionals
+
+## 🎯 Objective
+
+The goal of Day 43 was to understand how GitHub Actions workflows can be made more dynamic using multiple jobs, environment variables, job dependencies, outputs, and conditional execution.
+
+---
+
+## Tasks Completed
+
+### ✅ Multi-Job Workflow
+
+Created a workflow with three dependent jobs:
+
+* Build
+* Test
+* Deploy
+
+Used `needs:` to ensure:
+
+* Build runs first
+* Test starts only after Build succeeds
+* Deploy runs only after Test completes successfully
+
+---
+
+### ✅ Environment Variables
+
+Practiced environment variables at different levels:
+
+* Workflow Level
+* Job Level
+* Step Level
+
+Also used GitHub context variables to print:
+
+* Commit SHA
+* GitHub Actor
+
+---
+
+### ✅ Job Dependencies
+
+Learned how `needs:` creates dependencies between jobs and ensures workflows execute in the correct order.
+
+---
+
+### ✅ Conditional Execution
+
+Implemented different conditions using:
+
+* Run only on the `main` branch
+* Execute a step only if a previous step fails
+* Run jobs only for `push` events
+* Use `continue-on-error` to prevent workflow failure
+
+---
+
+### ✅ Smart Pipeline
+
+Built a workflow that:
+
+* Runs **Lint** and **Test** jobs in parallel
+* Executes a **Summary** job after both complete
+* Detects whether the push is on the main or a feature branch
+* Prints the latest commit message
+
+---
+
+## Key GitHub Actions Concepts Learned
+
+* `jobs`
+* `steps`
+* `needs`
+* `env`
+* `if`
+* `continue-on-error`
+* GitHub Context Variables
+* Parallel Job Execution
+* Sequential Job Execution
+
+---
+
+## Repository Structure
+
+```text
+.github/
+└── workflows/
+    ├── multi-job.yml
+    ├── env-vars.yml
+    ├── conditionals.yml
+    └── smart-pipeline.yml
+```
+
+---
+
+## Key Learnings
+
+* `needs` helps create dependencies between jobs.
+* Environment variables improve workflow flexibility and reusability.
+* Conditional execution prevents unnecessary steps from running.
+* Parallel jobs reduce CI execution time.
+* GitHub Context variables provide useful runtime information for automation.
+
+---
+
+## Conclusion
+
+Day 43 strengthened my understanding of GitHub Actions by introducing advanced workflow concepts such as job orchestration, environment variables, conditional execution, and smart pipeline design. These are essential building blocks for creating scalable and production-ready CI/CD pipelines.
