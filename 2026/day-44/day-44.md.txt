@@ -1,0 +1,113 @@
+# Day 44 – Secrets, Artifacts & Running Real Tests in CI
+
+## 🎯 Objective
+
+The goal of Day 44 was to learn how to securely manage sensitive information, preserve build outputs, and execute real tests inside GitHub Actions workflows.
+
+---
+
+# Task 1 – GitHub Secrets
+
+Created repository secrets using GitHub Actions.
+
+Configured:
+
+* `MY_SECRET_MESSAGE`
+* `DOCKER_USERNAME`
+* `DOCKER_TOKEN`
+
+Verified that GitHub automatically masks secret values in workflow logs.
+
+### Why Secrets?
+
+* Prevent exposing sensitive credentials.
+* Keep passwords and API keys out of source code.
+* Secure CI/CD pipelines.
+
+---
+
+# Task 2 – Using Secrets as Environment Variables
+
+Passed repository secrets to workflow steps using environment variables.
+
+Example:
+
+* Read secret from GitHub Actions.
+* Used it inside shell commands.
+* Never exposed the actual value in logs.
+
+---
+
+# Task 3 – Uploading Artifacts
+
+Generated a sample report file.
+
+Uploaded it using:
+
+* `actions/upload-artifact@v4`
+
+Verified the artifact could be downloaded from the GitHub Actions run.
+
+---
+
+# Task 4 – Downloading Artifacts
+
+Created a second job that:
+
+* Downloaded the artifact
+* Displayed its contents
+
+This demonstrated how artifacts can be shared between independent jobs.
+
+---
+
+# Task 5 – Running Real Tests
+
+Executed a shell script inside GitHub Actions.
+
+Workflow Steps:
+
+* Checkout repository
+* Execute script
+* Observe successful pipeline
+
+Also intentionally introduced an error to verify that the workflow failed correctly before fixing it.
+
+---
+
+# Task 6 – Dependency Caching
+
+Implemented dependency caching using:
+
+* `actions/cache@v4`
+
+Observed that repeated workflow executions become faster because dependencies are restored from cache instead of downloading again.
+
+---
+
+# Repository Structure
+
+```text
+.github/
+└── workflows/
+    ├── secrets.yml
+    ├── artifact-test.yml
+    └── cache.yml
+```
+
+---
+
+# Key Learnings
+
+* GitHub Secrets securely store sensitive information.
+* Secrets should never be printed in workflow logs.
+* Artifacts allow files to be shared across jobs.
+* Real tests help validate code quality before deployment.
+* Dependency caching significantly improves CI execution time.
+* GitHub Actions enables secure and production-ready CI/CD automation.
+
+---
+
+# Conclusion
+
+Day 44 introduced some of the most practical GitHub Actions features used in real DevOps projects. Learning how to work with secrets, artifacts, automated testing, and caching has strengthened my understanding of secure and efficient CI/CD pipelines.
