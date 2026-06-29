@@ -1,0 +1,88 @@
+# Day 45 – Docker Build & Push with GitHub Actions
+
+## 🎯 Objective
+
+The goal of Day 45 was to automate Docker image creation and publishing using GitHub Actions. This workflow builds a Docker image whenever code is pushed to the main branch and automatically publishes it to Docker Hub.
+
+---
+
+# Tasks Completed
+
+## ✅ Docker Image Build
+
+Created a GitHub Actions workflow that automatically builds the Docker image from the application's Dockerfile.
+
+---
+
+## ✅ Docker Hub Authentication
+
+Configured GitHub Secrets:
+
+* DOCKER_USERNAME
+* DOCKER_TOKEN
+
+Used these secrets securely to authenticate with Docker Hub.
+
+---
+
+## ✅ Automatic Image Push
+
+The workflow automatically pushes two Docker image tags:
+
+* latest
+* sha-<short_commit_hash>
+
+This provides both a stable release tag and a version-specific tag.
+
+---
+
+## ✅ Conditional Deployment
+
+Configured the workflow so Docker images are pushed only when changes are merged into the **main** branch.
+
+Feature branches still build successfully but skip the image push step.
+
+---
+
+## ✅ Docker Buildx
+
+Used Docker Buildx to enable modern image building capabilities and improved Docker compatibility.
+
+---
+
+# CI/CD Workflow
+
+1. Push code to GitHub.
+2. GitHub Actions starts automatically.
+3. Repository is checked out.
+4. Docker Buildx is initialized.
+5. Login to Docker Hub using GitHub Secrets.
+6. Docker image is built.
+7. Image is tagged.
+8. Image is pushed to Docker Hub.
+
+---
+
+# Repository Structure
+
+```text
+.github/
+└── workflows/
+    └── docker-publish.yml
+```
+
+---
+
+# Key Learnings
+
+* Automating Docker builds using GitHub Actions
+* Secure authentication using GitHub Secrets
+* Publishing Docker images automatically
+* Conditional execution using GitHub branch filters
+* Docker image versioning using Git commit hashes
+
+---
+
+# Conclusion
+
+Day 45 demonstrated how modern CI/CD pipelines automatically package applications into Docker images and publish them to Docker Hub. This workflow represents a real-world DevOps practice used in production environments to streamline software delivery.
