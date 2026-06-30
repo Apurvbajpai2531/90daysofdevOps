@@ -1,0 +1,92 @@
+# Day 46 – Reusable Workflows & Composite Actions
+
+## 🎯 Objective
+
+The goal of Day 46 was to reduce duplication in GitHub Actions by creating reusable workflows and custom composite actions.
+
+---
+
+## Tasks Completed
+
+### ✅ Reusable Workflow
+
+Created a reusable workflow using the `workflow_call` trigger.
+
+Accepted:
+
+* `app_name`
+* `environment`
+* `docker_token`
+
+The workflow checks out the repository, prints build information, validates that a secret is available, and generates a reusable build version.
+
+---
+
+### ✅ Caller Workflow
+
+Created a caller workflow that invokes the reusable workflow using:
+
+* `uses`
+* `with`
+* `secrets`
+
+Also retrieved the build version output from the reusable workflow.
+
+---
+
+### ✅ Composite Action
+
+Created a custom composite action inside:
+
+```text
+.github/actions/setup-and-greet/
+```
+
+The action:
+
+* Prints a greeting
+* Displays the current date
+* Shows the runner operating system
+* Returns an output value
+
+---
+
+## Reusable Workflow vs Composite Action
+
+| Feature         | Reusable Workflow        | Composite Action    |
+| --------------- | ------------------------ | ------------------- |
+| Trigger         | workflow_call            | uses                |
+| Contains Jobs   | ✅ Yes                    | ❌ No                |
+| Contains Steps  | ✅ Yes                    | ✅ Yes               |
+| Accepts Secrets | ✅ Yes                    | Through workflow    |
+| Best For        | Complete CI/CD workflows | Reusable step logic |
+
+---
+
+## Repository Structure
+
+```text
+.github/
+├── workflows/
+│   ├── reusable-build.yml
+│   └── call-build.yml
+└── actions/
+    └── setup-and-greet/
+        └── action.yml
+```
+
+---
+
+## Key Learnings
+
+* Created reusable workflows using `workflow_call`.
+* Passed inputs and secrets between workflows.
+* Generated outputs from reusable workflows.
+* Built a custom composite action.
+* Learned how reusable workflows improve maintainability in large CI/CD projects.
+
+---
+
+## Conclusion
+
+Day 46 introduced advanced GitHub Actions concepts that are commonly used in production environments. Reusable workflows and composite actions help eliminate duplication, standardize CI/CD pipelines, and improve maintainability across repositories.
