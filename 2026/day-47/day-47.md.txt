@@ -1,0 +1,128 @@
+# Day 47 – Advanced Triggers: PR Events, Cron Schedules & Event-Driven Pipelines
+
+## 🎯 Objective
+
+The objective of Day 47 was to explore advanced GitHub Actions triggers and understand how workflows can respond to different repository events beyond simple push triggers.
+
+---
+
+## Tasks Completed
+
+### ✅ Pull Request Lifecycle Events
+
+Created a workflow that triggers on Pull Request events:
+
+* opened
+* synchronize
+* reopened
+* closed
+
+The workflow prints:
+
+* Event type
+* PR title
+* PR author
+* Source branch
+* Target branch
+
+A conditional step executes only when the pull request has been successfully merged.
+
+---
+
+### ✅ Pull Request Validation
+
+Built a workflow that performs automated PR checks.
+
+Validation includes:
+
+* File size validation
+* Branch naming convention
+* Pull Request description verification
+
+These checks help maintain repository quality before merging changes.
+
+---
+
+### ✅ Scheduled Workflows
+
+Configured scheduled workflows using Cron syntax.
+
+Implemented:
+
+* Every Monday at 2:30 UTC
+* Every 6 hours
+* Manual execution using `workflow_dispatch`
+
+Also added a simple health check using `curl`.
+
+---
+
+### ✅ Path & Branch Filters
+
+Created workflows that only execute when:
+
+* Files inside `src/` or `app/` change.
+* Changes are pushed to `main` or `release/*` branches.
+
+Used `paths-ignore` to avoid unnecessary workflow executions for documentation-only changes.
+
+---
+
+### ✅ Workflow Chaining
+
+Implemented workflow chaining using `workflow_run`.
+
+Workflow sequence:
+
+1. Test Workflow
+2. Deployment Workflow
+
+Deployment runs only after successful test execution.
+
+---
+
+### ✅ Repository Dispatch
+
+Learned how external systems can trigger GitHub Actions using `repository_dispatch`.
+
+Possible integrations include:
+
+* Monitoring tools
+* Slack bots
+* Deployment portals
+* Internal automation systems
+
+---
+
+## Key Learnings
+
+* Pull Request lifecycle events
+* Scheduled GitHub Actions workflows
+* Cron expressions
+* Branch filters
+* Path filters
+* workflow_run
+* repository_dispatch
+* Automated PR validation
+
+---
+
+## Repository Structure
+
+```text
+.github/
+└── workflows/
+    ├── pr-lifecycle.yml
+    ├── pr-checks.yml
+    ├── scheduled-tasks.yml
+    ├── smart-triggers.yml
+    ├── tests.yml
+    ├── deploy-after-tests.yml
+    └── external-trigger.yml
+```
+
+---
+
+## Conclusion
+
+Day 47 expanded my understanding of event-driven CI/CD. I learned how GitHub Actions can respond to pull requests, scheduled jobs, workflow dependencies, file changes, and even external events. These capabilities are widely used in production DevOps pipelines to automate quality checks, deployments, and operational workflows.
