@@ -1,0 +1,176 @@
+# Day 48 – GitHub Actions Project: End-to-End CI/CD Pipeline
+
+## 🎯 Objective
+
+The goal of Day 48 was to build a complete production-style CI/CD pipeline using GitHub Actions by combining everything learned from Day 40 through Day 47.
+
+This capstone project demonstrates how GitHub Actions can automate building, testing, Docker image creation, deployment, and scheduled health monitoring.
+
+---
+
+# Project Overview
+
+A simple Dockerized application integrated with GitHub Actions to automate the complete software delivery lifecycle.
+
+## Tech Stack
+
+* GitHub Actions
+* Docker
+* Docker Hub
+* Python / Flask (or your application)
+* GitHub Secrets
+* YAML
+
+---
+
+# CI/CD Pipeline Architecture
+
+```text
+Pull Request
+      │
+      ▼
+Reusable Build & Test Workflow
+      │
+      ▼
+PR Validation ✅
+
+──────────────────────────────────────────
+
+Merge to Main
+      │
+      ▼
+Reusable Build & Test
+      │
+      ▼
+Reusable Docker Build & Push
+      │
+      ▼
+Production Deployment
+      │
+      ▼
+Deployment Successful 🚀
+
+──────────────────────────────────────────
+
+Every 12 Hours
+      │
+      ▼
+Scheduled Health Check
+      │
+      ▼
+Health Report Generated
+```
+
+---
+
+# Tasks Completed
+
+## ✅ Project Setup
+
+* Created a GitHub Actions project repository
+* Added application source code
+* Dockerized the application
+* Added project documentation
+
+---
+
+## ✅ Reusable Build & Test Workflow
+
+Created a reusable workflow that:
+
+* Checks out the repository
+* Sets up the runtime
+* Installs dependencies
+* Executes tests
+* Returns test results
+
+---
+
+## ✅ Reusable Docker Workflow
+
+Implemented another reusable workflow that:
+
+* Authenticates with Docker Hub
+* Builds Docker images
+* Pushes images using multiple tags
+* Returns the Docker image URL
+
+---
+
+## ✅ Pull Request Pipeline
+
+Configured a dedicated PR workflow that:
+
+* Executes only Build & Test
+* Performs validation
+* Does not publish Docker images
+
+---
+
+## ✅ Main Branch Pipeline
+
+Created a production pipeline that:
+
+1. Builds the application
+2. Runs automated tests
+3. Builds Docker image
+4. Pushes image to Docker Hub
+5. Deploys to Production
+
+---
+
+## ✅ Scheduled Health Check
+
+Implemented a scheduled workflow that:
+
+* Runs every 12 hours
+* Pulls the latest Docker image
+* Starts the container
+* Verifies the health endpoint
+* Generates a GitHub Step Summary report
+
+---
+
+## ✅ GitHub Features Used
+
+* Reusable Workflows
+* workflow_call
+* workflow_dispatch
+* workflow_run
+* GitHub Secrets
+* Docker Buildx
+* Environment Protection
+* Scheduled Cron Jobs
+* Job Outputs
+* Conditional Execution
+* Step Summary
+
+---
+
+# Future Improvements
+
+* Slack Notifications
+* Multi-Environment Deployments
+* Kubernetes Deployment
+* Rollback Strategy
+* SonarQube Integration
+* Trivy Security Scanning
+* Monitoring with Prometheus & Grafana
+
+---
+
+# Key Learnings
+
+* Designed a production-ready CI/CD pipeline.
+* Reused workflows across multiple pipelines.
+* Automated Docker image creation and publishing.
+* Used GitHub Secrets securely.
+* Implemented deployment automation.
+* Built scheduled operational workflows.
+* Understood how GitHub Actions workflows collaborate in real-world DevOps environments.
+
+---
+
+# Conclusion
+
+Day 48 served as the GitHub Actions capstone project, bringing together workflow automation, reusable pipelines, Docker integration, deployment automation, and scheduled monitoring into one complete CI/CD solution. This project reflects the core practices followed in modern DevOps teams for continuous integration and continuous delivery.
