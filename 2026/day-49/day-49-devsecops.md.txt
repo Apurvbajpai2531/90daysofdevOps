@@ -1,0 +1,152 @@
+# Day 49 – DevSecOps: Add Security to Your CI/CD Pipeline
+
+## 🎯 Objective
+
+The objective of Day 49 was to introduce **DevSecOps** principles by integrating automated security checks into an existing GitHub Actions CI/CD pipeline. Instead of treating security as a separate process, security becomes part of every build, test, and deployment.
+
+---
+
+# What is DevSecOps?
+
+DevSecOps is the practice of integrating security into every stage of the Software Development Life Cycle (SDLC). Rather than performing security checks after deployment, vulnerabilities are detected and addressed during development and CI/CD execution.
+
+In simple terms:
+
+> **Build → Test → Scan → Deploy**
+
+instead of
+
+> **Build → Deploy → Discover Security Issues Later**
+
+---
+
+# Tasks Completed
+
+## ✅ Docker Image Vulnerability Scanning
+
+Integrated **Trivy** into the main GitHub Actions pipeline.
+
+The workflow now:
+
+* Builds the Docker image
+* Scans the image for known vulnerabilities (CVEs)
+* Fails the pipeline if any **Critical** or **High** severity vulnerabilities are detected
+* Continues to deployment only if the scan passes successfully
+
+---
+
+## ✅ GitHub Secret Scanning
+
+Enabled GitHub's built-in security features:
+
+* Secret Scanning
+* Push Protection (where available)
+
+These features automatically detect accidentally committed credentials such as API keys, passwords, or access tokens.
+
+---
+
+## ✅ Dependency Review
+
+Added **Dependency Review Action** to Pull Request workflows.
+
+This automatically checks newly added dependencies against GitHub's vulnerability database and blocks Pull Requests that introduce critical security issues.
+
+---
+
+## ✅ Workflow Permissions
+
+Applied the principle of least privilege by limiting workflow permissions.
+
+Example:
+
+```yaml id="4gb6z2"
+permissions:
+  contents: read
+```
+
+Only workflows that require additional permissions are granted extra access.
+
+---
+
+# Secure CI/CD Pipeline
+
+```text id="c3ljvw"
+Pull Request
+      │
+      ▼
+Build & Test
+      │
+      ▼
+Dependency Review
+      │
+      ▼
+PR Validation ✅
+
+────────────────────────────────────────
+
+Merge to Main
+      │
+      ▼
+Build & Test
+      │
+      ▼
+Docker Build
+      │
+      ▼
+Trivy Security Scan
+      │
+      ▼
+Docker Push
+      │
+      ▼
+Production Deployment 🚀
+
+────────────────────────────────────────
+
+Always Active
+
+GitHub Secret Scanning
+Push Protection
+```
+
+---
+
+# Security Tools Used
+
+* GitHub Actions
+* Trivy
+* GitHub Secret Scanning
+* GitHub Dependency Review
+* Docker
+* GitHub Secrets
+
+---
+
+# Key Learnings
+
+* Security should be integrated into CI/CD from the beginning.
+* Docker images should always be scanned before deployment.
+* GitHub Secret Scanning helps prevent accidental credential leaks.
+* Dependency Review identifies vulnerable packages before they reach production.
+* Limiting workflow permissions reduces security risks.
+* DevSecOps promotes continuous security instead of one-time security testing.
+
+---
+
+# Future Improvements
+
+* CodeQL Static Code Analysis
+* OWASP Dependency Check
+* SARIF Security Reports
+* OIDC Authentication
+* Image Signing with Cosign
+* Kubernetes Security Scanning
+* Infrastructure as Code (IaC) Scanning
+* Software Bill of Materials (SBOM)
+
+---
+
+# Conclusion
+
+Day 49 introduced the fundamentals of DevSecOps by extending an existing CI/CD pipeline with automated security checks. Integrating image scanning, dependency review, secret scanning, and permission hardening demonstrates how modern DevOps teams build secure software delivery pipelines without slowing development.
