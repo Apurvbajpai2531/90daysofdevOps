@@ -1,0 +1,179 @@
+# Day 50 – Kubernetes Architecture and Cluster Setup
+
+## 🎯 Objective
+
+The goal of Day 50 was to begin the Kubernetes journey by understanding its architecture, setting up a local Kubernetes cluster, and learning how to interact with the cluster using `kubectl`.
+
+---
+
+# What is Kubernetes?
+
+Kubernetes (K8s) is an open-source container orchestration platform that automates the deployment, scaling, networking, and management of containerized applications.
+
+It was originally developed by Google based on its internal Borg system and is now maintained by the Cloud Native Computing Foundation (CNCF).
+
+---
+
+# Why Kubernetes?
+
+Docker helps run a single container or a few containers.
+
+Kubernetes helps manage hundreds or thousands of containers across multiple servers by providing:
+
+* Container orchestration
+* Auto scaling
+* Self-healing
+* Service discovery
+* Load balancing
+* Rolling updates and rollbacks
+* High availability
+
+---
+
+# Kubernetes Architecture
+
+## Control Plane Components
+
+### API Server
+
+Acts as the entry point for all cluster requests. Every `kubectl` command communicates with the API Server.
+
+### etcd
+
+A distributed key-value database that stores the entire cluster state and configuration.
+
+### Scheduler
+
+Assigns newly created Pods to the most suitable Worker Node.
+
+### Controller Manager
+
+Continuously monitors the cluster and ensures that the current state matches the desired state.
+
+---
+
+## Worker Node Components
+
+### kubelet
+
+Runs on every worker node and communicates with the API Server to manage Pods.
+
+### kube-proxy
+
+Handles networking, service discovery, and communication between Pods.
+
+### Container Runtime
+
+Responsible for running containers.
+
+Examples:
+
+* containerd
+* CRI-O
+
+---
+
+# Request Flow
+
+```text id="ljlwmg"
+kubectl apply
+      │
+      ▼
+API Server
+      │
+      ▼
+etcd stores configuration
+      │
+      ▼
+Scheduler selects Worker Node
+      │
+      ▼
+kubelet creates Pod
+      │
+      ▼
+Container Runtime starts Container
+      │
+      ▼
+kube-proxy enables networking
+```
+
+---
+
+# Local Kubernetes Cluster
+
+For this lab, a local Kubernetes cluster was created using:
+
+* kind (Kubernetes IN Docker)
+
+Alternative option:
+
+* Minikube
+
+---
+
+# kubectl Commands Practiced
+
+```bash
+kubectl version --client
+kubectl cluster-info
+kubectl get nodes
+kubectl describe node <node-name>
+kubectl get namespaces
+kubectl get pods -A
+kubectl get pods -n kube-system
+kubectl config current-context
+kubectl config get-contexts
+kubectl config view
+```
+
+---
+
+# Cluster Lifecycle
+
+Created Cluster
+
+```bash
+kind create cluster --name devops-cluster
+```
+
+Deleted Cluster
+
+```bash
+kind delete cluster --name devops-cluster
+```
+
+Verified Cluster
+
+```bash
+kubectl get nodes
+```
+
+---
+
+# kubeconfig
+
+The kubeconfig file stores Kubernetes cluster connection details, users, certificates, and contexts.
+
+Default location:
+
+```text
+~/.kube/config
+```
+
+---
+
+# Key Learnings
+
+* Understood Kubernetes architecture.
+* Learned the responsibilities of Control Plane and Worker Nodes.
+* Installed and used kubectl.
+* Created a local Kubernetes cluster.
+* Explored cluster resources and namespaces.
+* Practiced cluster lifecycle commands.
+* Learned how kubectl communicates with the API Server.
+
+---
+
+# Conclusion
+
+Day 50 marked the beginning of my Kubernetes journey. I explored the architecture behind Kubernetes, understood how cluster components work together, and learned the essential kubectl commands required to interact with a Kubernetes cluster. This provides the foundation for deploying and managing containerized applications at scale.
