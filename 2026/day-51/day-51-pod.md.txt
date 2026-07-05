@@ -1,0 +1,221 @@
+# Day 51 – Kubernetes Manifests and My First Pods
+
+## 🎯 Objective
+
+The objective of Day 51 was to understand the structure of Kubernetes manifest files and deploy Pods using YAML. I learned how Kubernetes resources are defined declaratively and practiced creating, managing, and deleting Pods using `kubectl`.
+
+---
+
+# Kubernetes Manifest Structure
+
+Every Kubernetes resource is described using a YAML manifest with four required top-level fields.
+
+## 1. apiVersion
+
+Specifies the Kubernetes API version used to create the resource.
+
+Example:
+
+```yaml
+apiVersion: v1
+```
+
+---
+
+## 2. kind
+
+Defines the type of Kubernetes resource.
+
+Example:
+
+```yaml
+kind: Pod
+```
+
+---
+
+## 3. metadata
+
+Contains information that uniquely identifies the resource.
+
+Typical fields include:
+
+* name
+* labels
+* namespace
+
+Example:
+
+```yaml
+metadata:
+  name: nginx-pod
+  labels:
+    app: nginx
+```
+
+---
+
+## 4. spec
+
+Defines the desired state of the resource.
+
+For Pods, it includes:
+
+* Containers
+* Images
+* Ports
+* Commands
+* Environment Variables
+* Volumes
+
+---
+
+# Pod Manifests Created
+
+## ✅ Nginx Pod
+
+Created an Nginx Pod using a YAML manifest.
+
+Features:
+
+* Nginx latest image
+* Port 80 exposed
+* App label
+
+---
+
+## ✅ BusyBox Pod
+
+Created a BusyBox Pod with a custom command.
+
+Command executed:
+
+```bash
+echo "Hello from BusyBox"
+sleep 3600
+```
+
+This keeps the container alive long enough for inspection.
+
+---
+
+## ✅ Custom Pod
+
+Created a third Pod with multiple labels.
+
+Labels used:
+
+* app
+* environment
+* team
+
+This demonstrated how Kubernetes labels help organize and filter resources.
+
+---
+
+# kubectl Commands Practiced
+
+```bash
+kubectl apply -f nginx-pod.yaml
+kubectl get pods
+kubectl get pods -o wide
+kubectl describe pod nginx-pod
+kubectl logs nginx-pod
+kubectl exec -it nginx-pod -- /bin/sh
+kubectl run redis-pod --image=redis:latest
+kubectl get pod redis-pod -o yaml
+kubectl apply --dry-run=client
+kubectl apply --dry-run=server
+kubectl get pods --show-labels
+kubectl get pods -l app=nginx
+kubectl label pod nginx-pod environment=production
+kubectl delete pod nginx-pod
+```
+
+---
+
+# Imperative vs Declarative
+
+## Imperative
+
+Commands directly tell Kubernetes what to do.
+
+Example:
+
+```bash
+kubectl run redis-pod --image=redis:latest
+```
+
+Advantages:
+
+* Quick testing
+* Fast resource creation
+
+---
+
+## Declarative
+
+Resources are defined in YAML files and managed through version control.
+
+Example:
+
+```bash
+kubectl apply -f nginx-pod.yaml
+```
+
+Advantages:
+
+* Repeatable deployments
+* Easy collaboration
+* Infrastructure as Code
+* Suitable for production environments
+
+---
+
+# Labels in Kubernetes
+
+Labels are key-value pairs attached to resources.
+
+Example:
+
+```yaml
+labels:
+  app: nginx
+  environment: production
+  team: devops
+```
+
+Labels make it easy to:
+
+* Filter resources
+* Select Pods
+* Organize workloads
+* Connect Services with Pods
+
+---
+
+# What Happens When a Standalone Pod is Deleted?
+
+A standalone Pod is permanently removed.
+
+Since it is not managed by a Deployment, ReplicaSet, or another controller, Kubernetes does **not** recreate it automatically.
+
+This is why production workloads are deployed using **Deployments** instead of individual Pods.
+
+---
+
+# Key Learnings
+
+* Learned Kubernetes manifest syntax.
+* Created Pods manually using YAML.
+* Used kubectl to deploy and manage Pods.
+* Compared imperative and declarative resource creation.
+* Practiced labels and selectors.
+* Used dry-run validation before deployment.
+* Explored Pods using logs, exec, and describe commands.
+
+---
+
+# Conclusion
+
+Day 51 provided hands-on experience with Kubernetes Pods and manifest files. Writing Pod definitions from scratch helped me understand how Kubernetes resources are declared and managed. This forms the foundation for learning Deployments, ReplicaSets, and Services in the upcoming Kubernetes modules.
