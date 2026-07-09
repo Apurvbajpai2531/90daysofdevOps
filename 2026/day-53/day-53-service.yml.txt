@@ -1,0 +1,224 @@
+# Day 53 – Kubernetes Services
+
+## 🎯 Objective
+
+The goal of Day 53 was to understand how Kubernetes Services provide stable networking for Pods. Since Pod IP addresses are temporary and change whenever Pods restart, Services act as a stable networking layer that enables reliable communication and load balancing between applications.
+
+---
+
+# Why Kubernetes Services?
+
+Pods are ephemeral by nature. Whenever a Pod is recreated, its IP address changes.
+
+This creates two major challenges:
+
+* Pod IPs are not permanent.
+* Deployments run multiple Pods, making it difficult to know which Pod should receive traffic.
+
+A Kubernetes Service solves these issues by providing:
+
+* A stable virtual IP address (ClusterIP)
+* Automatic load balancing across Pods
+* Built-in DNS-based service discovery
+
+---
+
+# Traffic Flow
+
+```text id="s5v7kt"
+Client
+   │
+   ▼
+Kubernetes Service
+   │
+   ├────────► Pod 1
+   ├────────► Pod 2
+   └────────► Pod 3
+```
+
+---
+
+# Deployment Created
+
+Created an Nginx Deployment with three replicas.
+
+Features:
+
+* Nginx 1.25
+* 3 replicas
+* Labels for Service selection
+
+Verified using:
+
+```bash id="h1o8cv"
+kubectl get deployments
+kubectl get pods -o wide
+```
+
+---
+
+# ClusterIP Service
+
+ClusterIP is the default Service type.
+
+Characteristics:
+
+* Accessible only inside the Kubernetes cluster
+* Provides a stable internal IP
+* Supports service-to-service communication
+
+Example:
+
+```yaml id="a8z12r"
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-app-clusterip
+spec:
+  type: ClusterIP
+  selector:
+    app: web-app
+  ports:
+  - port: 80
+    targetPort: 80
+```
+
+Verified using:
+
+```bash id="h3y1tp"
+kubectl get services
+kubectl run test-client --image=busybox --rm -it -- sh
+wget -qO- http://web-app-clusterip
+```
+
+---
+
+# Kubernetes DNS
+
+Every Service automatically receives a DNS name.
+
+Format:
+
+```text id="kt72pm"
+<service-name>.<namespace>.svc.cluster.local
+```
+
+Example:
+
+```text id="qf7pw1"
+web-app-clusterip.default.svc.cluster.local
+```
+
+DNS lookup:
+
+```bash id="kfh73e"
+nslookup web-app-clusterip
+```
+
+---
+
+# NodePort Service
+
+NodePort exposes the application on every Kubernetes node.
+
+Characteristics:
+
+* External access using Node IP
+* Port range: 30000–32767
+* Commonly used for development and testing
+
+Example:
+
+```yaml id="r9e4ux"
+type: NodePort
+nodePort: 30080
+```
+
+Access:
+
+```text id="wz8jha"
+http://<NodeIP>:30080
+```
+
+---
+
+# LoadBalancer Service
+
+LoadBalancer is designed for cloud environments.
+
+Characteristics:
+
+* Creates a cloud load balancer
+* Assigns a public IP
+* Used in production environments
+
+Example:
+
+```yaml id="z3jh9u"
+type: LoadBalancer
+```
+
+On local clusters (Kind/Minikube), the External IP usually appears as:
+
+```text id="0lsj5d"
+<pending>
+```
+
+because no cloud provider exists to provision an external load balancer.
+
+---
+
+# Service Comparison
+
+| Service Type | Accessible From | Common Use Case        |
+| ------------ | --------------- | ---------------------- |
+| ClusterIP    | Inside Cluster  | Internal communication |
+| NodePort     | NodeIP:Port     | Development & Testing  |
+| LoadBalancer | Public IP       | Production deployments |
+
+---
+
+# Kubernetes Endpoints
+
+A Service routes traffic to Pods through Endpoints.
+
+View Endpoints:
+
+```bash id="s8v92r"
+kubectl get endpoints
+kubectl describe service web-app-clusterip
+```
+
+Endpoints automatically update whenever Pods are created or deleted.
+
+---
+
+# kubectl Commands Practiced
+
+```bash id="w3r0vh"
+kubectl get services
+kubectl get endpoints
+kubectl describe service web-app-clusterip
+kubectl get pods -o wide
+kubectl run test-client --image=busybox --rm -it -- sh
+kubectl get services -o wide
+kubectl delete service web-app-clusterip
+```
+
+---
+
+# Key Learnings
+
+* Understood why Kubernetes Services are required.
+* Learned how Services provide stable networking.
+* Created ClusterIP, NodePort, and LoadBalancer Services.
+* Practiced Kubernetes DNS service discovery.
+* Learned how Services load balance traffic across Pods.
+* Explored Kubernetes Endpoints.
+* Compared all Service types and their production use cases.
+
+---
+
+# Conclusion
+
+Day 53 introduced Kubernetes networking through Services. By using ClusterIP, NodePort, and LoadBalancer, applications become discoverable, highly available, and accessible without relying on changing Pod IP addresses. Services form the networking backbone of Kubernetes applications and are essential for building scalable, production-ready systems.

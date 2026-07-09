@@ -1,0 +1,225 @@
+# Day 52 – Kubernetes Namespaces and Deployments
+
+## 🎯 Objective
+
+The goal of Day 52 was to understand how Kubernetes organizes resources using **Namespaces** and manages applications using **Deployments**. Unlike standalone Pods, Deployments provide self-healing, scaling, and rolling update capabilities, making them the preferred way to run applications in production.
+
+---
+
+# What are Namespaces?
+
+Namespaces are logical partitions within a Kubernetes cluster that help organize and isolate resources.
+
+They are commonly used to separate different environments such as:
+
+* Development
+* Testing
+* Staging
+* Production
+
+Built-in namespaces include:
+
+* **default** – Default namespace for resources.
+* **kube-system** – Kubernetes control plane components.
+* **kube-public** – Publicly readable resources.
+* **kube-node-lease** – Stores node heartbeat information.
+
+---
+
+# Custom Namespaces Created
+
+Created the following namespaces:
+
+* dev
+* staging
+* production
+
+Verified using:
+
+```bash id="pdg1la"
+kubectl get namespaces
+```
+
+Created Pods in different namespaces:
+
+```bash id="8ldpm5"
+kubectl run nginx-dev --image=nginx -n dev
+kubectl run nginx-staging --image=nginx -n staging
+```
+
+Listed resources across all namespaces:
+
+```bash id="x1l5ae"
+kubectl get pods -A
+```
+
+---
+
+# Deployment Manifest
+
+Example Deployment:
+
+```yaml id="1q6xui"
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  namespace: dev
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.24
+        ports:
+        - containerPort: 80
+```
+
+---
+
+# Deployment Components
+
+### apiVersion
+
+Defines the Kubernetes API version.
+
+### kind
+
+Specifies the resource type.
+
+### metadata
+
+Contains resource identity such as:
+
+* Name
+* Namespace
+* Labels
+
+### spec
+
+Defines the desired state.
+
+Includes:
+
+* Replica count
+* Pod selector
+* Pod template
+* Container image
+* Ports
+
+---
+
+# Self-Healing
+
+One Pod managed by the Deployment was deleted manually.
+
+```bash id="rlsl6l"
+kubectl delete pod <pod-name> -n dev
+```
+
+Kubernetes automatically detected the missing Pod and created a replacement.
+
+This demonstrates the self-healing capability of Deployments.
+
+---
+
+# Scaling
+
+Scaled the Deployment using:
+
+```bash id="dqjlwm"
+kubectl scale deployment nginx-deployment --replicas=5 -n dev
+```
+
+Later reduced replicas:
+
+```bash id="g1ptdb"
+kubectl scale deployment nginx-deployment --replicas=2 -n dev
+```
+
+Scaling can also be performed declaratively by modifying the YAML manifest and reapplying it.
+
+---
+
+# Rolling Update
+
+Updated the container image:
+
+```bash id="6vrc7k"
+kubectl set image deployment/nginx-deployment nginx=nginx:1.25 -n dev
+```
+
+Verified rollout:
+
+```bash id="rg7q9i"
+kubectl rollout status deployment/nginx-deployment -n dev
+```
+
+Viewed rollout history:
+
+```bash id="lwk0ku"
+kubectl rollout history deployment/nginx-deployment -n dev
+```
+
+Performed rollback:
+
+```bash id="mxiv2j"
+kubectl rollout undo deployment/nginx-deployment -n dev
+```
+
+The Deployment safely returned to the previous image version without downtime.
+
+---
+
+# Standalone Pod vs Deployment
+
+| Standalone Pod                 | Deployment                          |
+| ------------------------------ | ----------------------------------- |
+| Single Pod                     | Manages multiple Pods               |
+| No self-healing                | Automatically recreates failed Pods |
+| Manual scaling                 | Automatic scaling support           |
+| No rolling updates             | Supports rolling updates            |
+| No rollback                    | Supports rollback                   |
+| Not recommended for production | Production-ready                    |
+
+---
+
+# kubectl Commands Practiced
+
+```bash id="xhtaxl"
+kubectl get namespaces
+kubectl get pods -A
+kubectl get deployments
+kubectl describe deployment nginx-deployment
+kubectl scale deployment nginx-deployment --replicas=5
+kubectl rollout status deployment/nginx-deployment
+kubectl rollout history deployment/nginx-deployment
+kubectl rollout undo deployment/nginx-deployment
+kubectl delete deployment nginx-deployment
+```
+
+---
+
+# Key Learnings
+
+* Understood the purpose of Kubernetes Namespaces.
+* Created custom namespaces.
+* Deployed applications using Deployments.
+* Learned how Deployments provide self-healing.
+* Practiced scaling applications.
+* Performed rolling updates.
+* Rolled back to previous versions.
+* Understood why Deployments are preferred over standalone Pods.
+
+---
+
+# Conclusion
+
+Day 52 introduced two essential Kubernetes concepts—Namespaces and Deployments. Namespaces help organize resources, while Deployments ensure applications remain highly available through self-healing, scaling, and zero-downtime updates. These concepts are fundamental for running production-grade applications on Kubernetes.

@@ -1,0 +1,234 @@
+# Day 55 – Kubernetes Persistent Volumes (PV) & Persistent Volume Claims (PVC)
+
+## 🎯 Objective
+
+The goal of Day 55 was to understand how Kubernetes provides persistent storage using **Persistent Volumes (PV)** and **Persistent Volume Claims (PVC)**. Unlike container storage, persistent volumes allow data to survive Pod deletion and recreation.
+
+---
+
+# Why Persistent Storage?
+
+Containers are **ephemeral** by design.
+
+When a Pod is deleted:
+
+* The container filesystem is removed.
+* Any locally stored data is lost.
+* Applications such as databases cannot rely on Pod storage.
+
+Kubernetes solves this using Persistent Volumes.
+
+---
+
+# Demonstrating Data Loss
+
+Created a Pod using an **emptyDir** volume.
+
+Steps performed:
+
+* Wrote a timestamp to `/data/message.txt`
+* Verified the file existed
+* Deleted the Pod
+* Recreated the Pod
+
+Observation:
+
+The previous file disappeared because **emptyDir exists only for the lifetime of the Pod**.
+
+---
+
+# Persistent Volume (PV)
+
+A Persistent Volume is a storage resource created for the Kubernetes cluster.
+
+Created a static PV using:
+
+* Capacity: **1Gi**
+* Access Mode: **ReadWriteOnce**
+* Reclaim Policy: **Retain**
+* Storage Type: **hostPath**
+
+Verified using:
+
+```bash id="pv1"
+kubectl get pv
+kubectl describe pv
+```
+
+Status:
+
+```text id="pv2"
+Available
+```
+
+---
+
+# Persistent Volume Claim (PVC)
+
+A Persistent Volume Claim is a request for storage made by an application.
+
+Created a PVC requesting:
+
+* 500Mi storage
+* ReadWriteOnce access
+
+Verified:
+
+```bash id="pvc1"
+kubectl get pvc
+kubectl get pv
+```
+
+Status:
+
+```text id="pvc2"
+Bound
+```
+
+The PVC was successfully bound to the available Persistent Volume.
+
+---
+
+# Using PVC in a Pod
+
+Mounted the PVC inside a Pod at:
+
+```text id="mount"
+/data
+```
+
+Created a file:
+
+```text id="file"
+message.txt
+```
+
+Deleted the Pod.
+
+Created a new Pod using the same PVC.
+
+Observation:
+
+The previously written file still existed, proving that data persisted independently of the Pod lifecycle.
+
+---
+
+# Static vs Dynamic Provisioning
+
+## Static Provisioning
+
+Administrator manually creates:
+
+* Persistent Volume
+
+Developer creates:
+
+* Persistent Volume Claim
+
+---
+
+## Dynamic Provisioning
+
+Developer only creates:
+
+* Persistent Volume Claim
+
+Kubernetes automatically provisions the required Persistent Volume using a StorageClass.
+
+Checked StorageClasses:
+
+```bash id="sc"
+kubectl get storageclass
+kubectl describe storageclass
+```
+
+---
+
+# Access Modes
+
+### ReadWriteOnce (RWO)
+
+One node can mount the volume with read-write access.
+
+### ReadOnlyMany (ROX)
+
+Multiple nodes can mount the volume as read-only.
+
+### ReadWriteMany (RWX)
+
+Multiple nodes can mount the volume with read-write access.
+
+---
+
+# Reclaim Policies
+
+## Retain
+
+Volume remains after PVC deletion.
+
+Administrator must manually clean it.
+
+## Delete
+
+Storage is automatically removed after PVC deletion.
+
+Commonly used with cloud storage.
+
+---
+
+# Storage Lifecycle
+
+```text id="flow"
+Persistent Volume
+        │
+        ▼
+Persistent Volume Claim
+        │
+        ▼
+Pod mounts PVC
+        │
+        ▼
+Application reads/writes data
+        │
+        ▼
+Pod deleted
+        │
+        ▼
+Data remains inside PV
+```
+
+---
+
+# kubectl Commands Practiced
+
+```bash id="cmds"
+kubectl get pv
+kubectl get pvc
+kubectl describe pv
+kubectl describe pvc
+kubectl get storageclass
+kubectl describe storageclass
+kubectl exec -it <pod> -- sh
+kubectl delete pod <pod-name>
+kubectl delete pvc <pvc-name>
+kubectl delete pv <pv-name>
+```
+
+---
+
+# Key Learnings
+
+* Learned why container storage is temporary.
+* Demonstrated data loss using emptyDir.
+* Created Persistent Volumes manually.
+* Created Persistent Volume Claims.
+* Mounted persistent storage inside Pods.
+* Verified data survives Pod deletion.
+* Learned Static and Dynamic Provisioning.
+* Understood StorageClasses, Access Modes, and Reclaim Policies.
+
+---
+
+# Conclusion
+
+Day 55 introduced one of the most important Kubernetes concepts—persistent storage. Persistent Volumes and Persistent Volume Claims ensure that application data remains available even when Pods are recreated. This is essential for running databases, stateful applications, and production workloads reliably.
