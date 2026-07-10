@@ -1,0 +1,220 @@
+# Day 56 – Kubernetes StatefulSets
+
+## 🎯 Objective
+
+The objective of Day 56 was to understand **StatefulSets**, the Kubernetes workload designed for stateful applications such as MySQL, PostgreSQL, MongoDB, Kafka, and Elasticsearch. Unlike Deployments, StatefulSets provide stable identities, persistent storage, and ordered deployment for each Pod.
+
+---
+
+# Why StatefulSets?
+
+Deployments are ideal for stateless applications where Pods are interchangeable.
+
+However, stateful applications require:
+
+* Stable Pod names
+* Persistent storage
+* Ordered startup and shutdown
+* Stable network identity
+
+Kubernetes provides StatefulSets to meet these requirements.
+
+---
+
+# Deployment vs StatefulSet
+
+| Feature          | Deployment        | StatefulSet                  |
+| ---------------- | ----------------- | ---------------------------- |
+| Pod Names        | Random            | Stable (web-0, web-1, web-2) |
+| Startup          | Parallel          | Ordered                      |
+| Shutdown         | Random            | Reverse Order                |
+| Storage          | Shared / Optional | Dedicated PVC per Pod        |
+| Network Identity | Dynamic           | Stable DNS                   |
+| Best For         | Stateless Apps    | Databases & Stateful Apps    |
+
+---
+
+# Headless Service
+
+Created a Headless Service using:
+
+```yaml id="hs1"
+clusterIP: None
+```
+
+Purpose:
+
+* Creates individual DNS records
+* Enables StatefulSet Pod discovery
+* Required for StatefulSets
+
+Verified:
+
+```bash id="hs2"
+kubectl get svc
+```
+
+Result:
+
+```text id="hs3"
+CLUSTER-IP: None
+```
+
+---
+
+# StatefulSet
+
+Created a StatefulSet with:
+
+* 3 replicas
+* Nginx image
+* volumeClaimTemplates
+* Headless Service
+
+Verified:
+
+```bash id="sts1"
+kubectl get statefulsets
+kubectl get pods
+```
+
+Pod names:
+
+```text id="sts2"
+web-0
+web-1
+web-2
+```
+
+Unlike Deployments, Pod names remain unchanged.
+
+---
+
+# VolumeClaimTemplates
+
+Each Pod automatically received its own Persistent Volume Claim.
+
+Example PVCs:
+
+```text id="pvc1"
+web-data-web-0
+web-data-web-1
+web-data-web-2
+```
+
+Every Pod owns independent storage.
+
+---
+
+# Stable DNS
+
+Each StatefulSet Pod gets its own DNS record.
+
+Format:
+
+```text id="dns1"
+<pod-name>.<service-name>.<namespace>.svc.cluster.local
+```
+
+Example:
+
+```text id="dns2"
+web-0.nginx.default.svc.cluster.local
+```
+
+Verified using:
+
+```bash id="dns3"
+nslookup web-0.nginx.default.svc.cluster.local
+```
+
+---
+
+# Persistent Storage
+
+Stored custom data inside each Pod.
+
+Deleted Pod:
+
+```bash id="storage1"
+kubectl delete pod web-0
+```
+
+Observation:
+
+* Pod recreated automatically
+* Same Pod name
+* Same PVC
+* Data remained intact
+
+This proves StatefulSets preserve application data.
+
+---
+
+# Ordered Scaling
+
+Scaled StatefulSet:
+
+```bash id="scale1"
+kubectl scale statefulset web --replicas=5
+```
+
+Creation order:
+
+```text id="scale2"
+web-0
+web-1
+web-2
+web-3
+web-4
+```
+
+Scaled down:
+
+```bash id="scale3"
+kubectl scale statefulset web --replicas=3
+```
+
+Termination order:
+
+```text id="scale4"
+web-4
+web-3
+```
+
+PVCs remained available even after scaling down.
+
+---
+
+# kubectl Commands Practiced
+
+```bash id="cmds"
+kubectl get sts
+kubectl get pods
+kubectl get pvc
+kubectl get svc
+kubectl describe statefulset web
+kubectl scale statefulset web --replicas=5
+kubectl delete pod web-0
+kubectl exec -it web-0 -- sh
+kubectl delete statefulset web
+```
+
+---
+
+# Key Learnings
+
+* Learned why databases require StatefulSets.
+* Created a Headless Service.
+* Deployed a StatefulSet.
+* Understood stable Pod identities.
+* Explored per-Pod DNS records.
+* Used volumeClaimTemplates.
+* Verified persistent storage survives Pod recreation.
+* Practiced ordered scaling and deletion.
+
+---
+
+# Conclusion
+
+Day 56 introduced StatefulSets, one of the most important Kubernetes resources for managing stateful workloads. Stable identities, dedicated storage, and predictable Pod management make StatefulSets the preferred choice for databases and distributed systems running in Kubernetes.
