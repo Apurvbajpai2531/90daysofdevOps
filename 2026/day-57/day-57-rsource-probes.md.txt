@@ -1,0 +1,211 @@
+# Day 57 – Kubernetes Resource Requests, Limits & Probes
+
+## 🎯 Objective
+
+The objective of Day 57 was to learn how Kubernetes manages container resources using **Resource Requests** and **Limits**, and how **Liveness**, **Readiness**, and **Startup Probes** help build self-healing and highly available applications.
+
+---
+
+# Why Resource Requests and Limits?
+
+Every application requires CPU and Memory to run efficiently.
+
+Without resource management:
+
+* One Pod can consume excessive resources.
+* Other applications may starve.
+* Scheduling becomes inefficient.
+* Cluster stability decreases.
+
+Kubernetes solves this using **Requests** and **Limits**.
+
+---
+
+# Resource Requests vs Limits
+
+## Requests
+
+Requests define the **minimum amount of CPU and Memory** a Pod requires.
+
+The Kubernetes Scheduler uses requests while deciding where to place a Pod.
+
+Example:
+
+```yaml
+resources:
+  requests:
+    cpu: "100m"
+    memory: "128Mi"
+```
+
+---
+
+## Limits
+
+Limits define the **maximum amount of resources** a Pod is allowed to consume.
+
+If the application exceeds:
+
+* CPU → Kubernetes throttles CPU usage.
+* Memory → Container is terminated (OOMKilled).
+
+Example:
+
+```yaml
+resources:
+  limits:
+    cpu: "250m"
+    memory: "256Mi"
+```
+
+---
+
+# QoS (Quality of Service) Classes
+
+Kubernetes automatically assigns a QoS class.
+
+### Guaranteed
+
+Requests = Limits
+
+Highest priority.
+
+---
+
+### Burstable
+
+Requests < Limits
+
+Most production workloads use this.
+
+---
+
+### BestEffort
+
+No requests or limits defined.
+
+Lowest priority during resource pressure.
+
+---
+
+# OOMKilled
+
+Created a Pod using the **polinux/stress** image.
+
+Configured:
+
+* Memory Limit: **100Mi**
+* Memory Allocation: **200Mi**
+
+Result:
+
+Container exceeded the memory limit and Kubernetes terminated it.
+
+Verified using:
+
+```bash
+kubectl describe pod
+```
+
+Important observation:
+
+* Exit Code: **137**
+* Reason: **OOMKilled**
+
+---
+
+# Pending Pod
+
+Created a Pod requesting:
+
+* CPU: **100**
+* Memory: **128Gi**
+
+The scheduler could not find any node capable of satisfying the request.
+
+Pod remained:
+
+```text
+Pending
+```
+
+The Events section displayed **Insufficient CPU** and **Insufficient Memory**.
+
+---
+
+# Liveness Probe
+
+A Liveness Probe checks whether a container is still alive.
+
+If the probe fails repeatedly:
+
+* Kubernetes restarts the container automatically.
+
+Use Case:
+
+Recover hung or deadlocked applications.
+
+---
+
+# Readiness Probe
+
+A Readiness Probe checks whether an application is ready to receive traffic.
+
+If it fails:
+
+* Pod is removed from Service Endpoints.
+* Traffic stops.
+* Container continues running.
+
+Unlike Liveness, Readiness **does not restart** the container.
+
+---
+
+# Startup Probe
+
+A Startup Probe is designed for slow-starting applications.
+
+Benefits:
+
+* Gives applications enough startup time.
+* Prevents unnecessary restarts.
+* Enables Liveness and Readiness only after successful startup.
+
+Useful for:
+
+* Java applications
+* Spring Boot
+* Large databases
+
+---
+
+# kubectl Commands Practiced
+
+```bash
+kubectl get pods
+kubectl describe pod
+kubectl logs <pod-name>
+kubectl get events
+kubectl get endpoints
+kubectl expose pod <pod-name> --port=80
+kubectl delete pod <pod-name>
+```
+
+---
+
+# Key Learnings
+
+* Learned the difference between Resource Requests and Limits.
+* Understood Kubernetes QoS Classes.
+* Demonstrated an **OOMKilled** container.
+* Observed Pending Pods due to insufficient resources.
+* Implemented Liveness Probe for self-healing.
+* Implemented Readiness Probe for traffic management.
+* Implemented Startup Probe for slow applications.
+* Understood how Kubernetes automatically maintains healthy workloads.
+
+---
+
+# Conclusion
+
+Day 57 focused on improving application reliability in Kubernetes. By configuring Resource Requests, Limits, and Health Probes, Kubernetes can efficiently schedule workloads, prevent resource exhaustion, automatically recover failed containers, and ensure only healthy Pods receive traffic.
