@@ -1,0 +1,261 @@
+# Day 59 – Helm: Kubernetes Package Manager
+
+## 🎯 Objective
+
+The objective of Day 59 was to learn **Helm**, the package manager for Kubernetes. Helm simplifies Kubernetes application deployment by packaging multiple Kubernetes resources into reusable **Charts**, making deployments easier to install, upgrade, customize, and roll back.
+
+---
+
+# What is Helm?
+
+Helm is the **package manager for Kubernetes**, similar to:
+
+* apt → Ubuntu
+* yum → CentOS
+* npm → Node.js
+* pip → Python
+
+Instead of manually writing dozens of Kubernetes YAML files, Helm installs and manages applications using reusable **Charts**.
+
+---
+
+# Core Concepts
+
+## 📦 Chart
+
+A Chart is a collection of Kubernetes manifests packaged together.
+
+It can contain:
+
+* Deployments
+* Services
+* ConfigMaps
+* Secrets
+* PVCs
+* Ingress
+* RBAC
+* and more.
+
+---
+
+## 🚀 Release
+
+A Release is a deployed instance of a Chart inside a Kubernetes cluster.
+
+Example:
+
+```bash id="helm1"
+helm install my-nginx bitnami/nginx
+```
+
+Here:
+
+* Chart → bitnami/nginx
+* Release → my-nginx
+
+---
+
+## 📚 Repository
+
+A Repository stores Helm Charts.
+
+Added the Bitnami Repository:
+
+```bash id="helm2"
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo update
+```
+
+Searched Charts:
+
+```bash id="helm3"
+helm search repo nginx
+helm search repo bitnami
+```
+
+---
+
+# Installing a Helm Chart
+
+Installed Nginx:
+
+```bash id="helm4"
+helm install my-nginx bitnami/nginx
+```
+
+Verified using:
+
+```bash id="helm5"
+helm list
+helm status my-nginx
+kubectl get all
+```
+
+Helm automatically created:
+
+* Deployment
+* Service
+* ReplicaSet
+* Pods
+
+without manually writing YAML.
+
+---
+
+# Customizing with Values
+
+Viewed default values:
+
+```bash id="helm6"
+helm show values bitnami/nginx
+```
+
+Installed with custom values:
+
+```bash id="helm7"
+helm install custom-nginx bitnami/nginx \
+--set replicaCount=3 \
+--set service.type=NodePort
+```
+
+Also used a custom values file:
+
+```yaml id="helm8"
+replicaCount: 3
+
+service:
+  type: NodePort
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+```
+
+Installed using:
+
+```bash id="helm9"
+helm install my-app bitnami/nginx -f custom-values.yaml
+```
+
+---
+
+# Upgrade & Rollback
+
+Upgraded release:
+
+```bash id="helm10"
+helm upgrade my-nginx bitnami/nginx \
+--set replicaCount=5
+```
+
+Checked history:
+
+```bash id="helm11"
+helm history my-nginx
+```
+
+Rolled back:
+
+```bash id="helm12"
+helm rollback my-nginx 1
+```
+
+Helm created a new revision while preserving previous history.
+
+---
+
+# Creating a Custom Chart
+
+Generated a new Chart:
+
+```bash id="helm13"
+helm create my-app
+```
+
+Important files:
+
+```text id="helm14"
+Chart.yaml
+values.yaml
+templates/
+charts/
+```
+
+Validated Chart:
+
+```bash id="helm15"
+helm lint my-app
+```
+
+Rendered templates:
+
+```bash id="helm16"
+helm template my-release ./my-app
+```
+
+Installed:
+
+```bash id="helm17"
+helm install my-release ./my-app
+```
+
+---
+
+# Go Template Examples
+
+Helm uses Go Templates.
+
+Examples:
+
+```yaml id="helm18"
+{{ .Values.replicaCount }}
+
+{{ .Chart.Name }}
+
+{{ .Release.Name }}
+```
+
+Templates allow Kubernetes manifests to become reusable and configurable.
+
+---
+
+# kubectl & Helm Commands Practiced
+
+```bash id="helm19"
+helm version
+helm env
+helm repo add
+helm repo update
+helm search repo
+helm install
+helm list
+helm status
+helm get values
+helm history
+helm upgrade
+helm rollback
+helm uninstall
+helm create
+helm lint
+helm template
+```
+
+---
+
+# Key Learnings
+
+* Learned Helm architecture.
+* Understood Charts, Releases, and Repositories.
+* Installed applications using Bitnami Charts.
+* Customized deployments using Values.
+* Performed Helm upgrades and rollbacks.
+* Created a custom Helm Chart.
+* Learned Go Template syntax.
+* Realized how Helm replaces dozens of Kubernetes YAML files with a single reusable package.
+
+---
+
+# Conclusion
+
+Day 59 introduced Helm, one of the most widely used Kubernetes tools in production. Helm simplifies application deployment, configuration management, upgrades, and rollbacks while promoting reusable and maintainable Kubernetes manifests.
