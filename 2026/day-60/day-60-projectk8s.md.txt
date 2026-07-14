@@ -1,0 +1,260 @@
+# Day 60 – Kubernetes Capstone: Deploying StockLoom on Kubernetes
+
+## Objective
+
+Deploy the **StockLoom Inventory & Warehouse Management Platform** on Kubernetes using the concepts learned throughout Days 50–59.
+
+---
+
+# Project Overview
+
+StockLoom is a production-ready Inventory & Warehouse Management platform built with:
+
+- FastAPI
+- NiceGUI
+- PostgreSQL
+- Docker
+- GitHub Actions
+- DevSecOps Pipeline
+
+Instead of deploying the sample WordPress application, this capstone demonstrates deploying a real-world production-style application on Kubernetes.
+
+---
+
+# Kubernetes Concepts Used
+
+| Concept | Used |
+|----------|------|
+| Namespace | ✅ |
+| Deployment | ✅ |
+| StatefulSet | ✅ |
+| Service | ✅ |
+| ConfigMap | ✅ |
+| Secret | ✅ |
+| Persistent Volume | ✅ |
+| Persistent Volume Claim | ✅ |
+| Resource Requests & Limits | ✅ |
+| Liveness Probe | ✅ |
+| Readiness Probe | ✅ |
+| Horizontal Pod Autoscaler | ✅ |
+
+---
+
+# Architecture
+
+```
+                    Users
+                      │
+                      │
+              NodePort Service
+                      │
+        ┌─────────────┴─────────────┐
+        │                           │
+ StockLoom Deployment (2 Replicas)
+        │                           │
+        └─────────────┬─────────────┘
+                      │
+                 ConfigMap
+                      │
+                  Kubernetes
+                    Secret
+                      │
+               PostgreSQL Service
+                      │
+              PostgreSQL StatefulSet
+                      │
+               Persistent Volume
+```
+
+---
+
+# Resources Created
+
+## Namespace
+
+```
+stockloom
+```
+
+---
+
+## ConfigMap
+
+Used for:
+
+- Database Host
+- Database Name
+- Application Configuration
+
+---
+
+## Secret
+
+Stored securely:
+
+- PostgreSQL Username
+- PostgreSQL Password
+- JWT Secret
+
+---
+
+## PostgreSQL
+
+Deployed using:
+
+- StatefulSet
+
+Features:
+
+- Persistent Storage
+- Stable DNS
+- Stable Pod Identity
+
+---
+
+## StockLoom Backend
+
+Deployed using:
+
+Deployment
+
+Features:
+
+- 2 Replicas
+- Self-Healing
+- Rolling Updates
+- Resource Requests
+- Resource Limits
+
+---
+
+## Service
+
+NodePort Service exposes StockLoom.
+
+Example:
+
+```
+http://localhost:30080
+```
+
+---
+
+## Persistent Storage
+
+PVC attached to PostgreSQL.
+
+Database remains available even after Pod recreation.
+
+---
+
+## Health Checks
+
+Configured:
+
+- Liveness Probe
+- Readiness Probe
+
+Ensures automatic recovery.
+
+---
+
+## Horizontal Pod Autoscaler
+
+Configured:
+
+- Minimum Replicas: 2
+- Maximum Replicas: 10
+- CPU Target: 50%
+
+---
+
+# DevSecOps Integration
+
+Existing GitHub Actions pipeline includes:
+
+- Ruff
+- Black
+- MyPy
+- Bandit
+- Semgrep
+- pip-audit
+- Trivy
+- Hadolint
+- Gitleaks
+- Docker Build
+- Docker Push
+
+---
+
+# Self-Healing Test
+
+Deleted one StockLoom Pod.
+
+Result:
+
+- Deployment automatically recreated the Pod.
+- Application remained available.
+
+---
+
+# Persistent Storage Test
+
+Deleted PostgreSQL Pod.
+
+Result:
+
+- StatefulSet recreated the Pod.
+- PVC retained database.
+- Inventory data remained intact.
+
+---
+
+# Production Features
+
+- Dockerized Application
+- Kubernetes Deployments
+- Stateful Database
+- Persistent Storage
+- ConfigMaps
+- Secrets
+- Health Probes
+- Resource Limits
+- HPA
+- DevSecOps Pipeline
+- CI/CD Automation
+
+---
+
+# What I Learned
+
+- Deploying real applications on Kubernetes
+- Stateful vs Stateless workloads
+- Kubernetes networking
+- Persistent storage
+- Resource management
+- Self-healing
+- Autoscaling
+- Kubernetes security best practices
+- DevSecOps integration with GitHub Actions
+
+---
+
+# Future Improvements
+
+- Ingress Controller
+- TLS using Cert-Manager
+- Prometheus Monitoring
+- Grafana Dashboards
+- ArgoCD GitOps
+- AWS EKS Deployment
+- Terraform Infrastructure
+- Helm Chart for StockLoom
+
+---
+
+# Conclusion
+
+This capstone combined all Kubernetes concepts learned from Days 50–59 into a production-style deployment of **StockLoom**.
+
+Instead of deploying a demo application, I successfully designed the architecture for a real inventory management platform using Kubernetes, persistent storage, security, resource management, autoscaling, and DevSecOps practices.
