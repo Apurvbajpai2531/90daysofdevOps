@@ -1,0 +1,176 @@
+# 🚀 TerraWeek Challenge – Day 62 | Providers, Resources & Dependencies
+
+## 📖 Overview
+
+On Day 62 of the TerraWeek Challenge, I explored one of Terraform's most powerful concepts—**Providers, Resources, and Dependencies**.
+
+Instead of creating standalone resources, I built a complete AWS networking infrastructure including a VPC, Public Subnet, Internet Gateway, Route Table, Security Group, and an EC2 instance. I also learned how Terraform automatically determines the order of resource creation using dependency graphs and when to use explicit dependencies with `depends_on`.
+
+---
+
+## 🎯 Objectives
+
+* Understand Terraform Providers
+* Learn Provider Version Constraints
+* Build a complete AWS Networking Stack
+* Understand Implicit & Explicit Dependencies
+* Visualize Infrastructure using `terraform graph`
+* Explore Terraform Lifecycle Rules
+* Clean up infrastructure using Terraform Destroy
+
+---
+
+## 🛠️ Technologies Used
+
+* Terraform v1.x
+* AWS Provider v5.x
+* Amazon VPC
+* Amazon EC2
+* Internet Gateway
+* Route Tables
+* Security Groups
+* AWS S3
+* Graphviz
+* AWS CLI
+
+---
+
+## 🏗️ AWS Architecture
+
+```text
+Internet
+    │
+Internet Gateway
+    │
+Route Table
+    │
+Public Subnet
+    │
+EC2 Instance
+    │
+Security Group
+    │
+VPC (10.0.0.0/16)
+
+S3 Bucket (depends_on EC2)
+```
+
+---
+
+## 📂 Project Structure
+
+```text
+day-62/
+├── providers.tf
+├── main.tf
+├── day-62-providers-resources.md
+├── graph.png
+├── images/
+│   ├── terraform-apply.png
+│   ├── aws-vpc.png
+│   └── dependency-graph.png
+└── .gitignore
+```
+
+---
+
+## 📚 What I Learned
+
+✅ Terraform Providers and Provider Lock Files
+
+✅ Version Constraints
+
+* `~> 5.0`
+* `>= 5.0`
+* `= 5.0.0`
+
+✅ Built AWS Networking Infrastructure
+
+* VPC
+* Public Subnet
+* Internet Gateway
+* Route Table
+* Route Table Association
+* Security Group
+* EC2 Instance
+
+✅ Terraform Dependencies
+
+* Implicit Dependencies
+* Explicit Dependencies using `depends_on`
+
+✅ Dependency Visualization
+
+```bash
+terraform graph
+```
+
+Generated a dependency graph to understand how Terraform builds infrastructure.
+
+---
+
+## 🔄 Terraform Lifecycle
+
+Learned lifecycle meta-arguments:
+
+* `create_before_destroy`
+* `prevent_destroy`
+* `ignore_changes`
+
+These help control how Terraform manages infrastructure updates.
+
+---
+
+## 🚀 Useful Terraform Commands
+
+```bash
+terraform init
+terraform validate
+terraform fmt
+terraform plan
+terraform apply
+terraform graph
+terraform show
+terraform destroy
+```
+
+---
+
+## 📸 Screenshots
+
+* Terraform Apply Output
+* AWS VPC Dashboard
+* AWS EC2 Instance
+* Terraform Dependency Graph
+
+(Add screenshots inside the `images/` folder.)
+
+---
+
+## 📖 Documentation
+
+Detailed documentation:
+
+`day-62-providers-resources.md`
+
+---
+
+## 🔗 GitHub Repository
+
+**Repository:**
+https://github.com/Apurvbajpai2531/TerraWeekTWS
+
+---
+
+## 🎯 Key Takeaways
+
+* Infrastructure resources are connected through dependencies.
+* Terraform automatically builds dependency graphs.
+* Implicit dependencies are created by resource references.
+* Explicit dependencies are useful when Terraform cannot infer relationships.
+* Lifecycle rules provide safer infrastructure updates.
+* Infrastructure can be managed predictably using code.
+
+---
+
+⭐ Thanks to **TrainWithShubham** for another practical Terraform challenge!
