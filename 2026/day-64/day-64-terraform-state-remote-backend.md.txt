@@ -1,0 +1,138 @@
+# 🚀 TerraWeek Challenge – Day 64 | Terraform State Management & Remote Backends
+
+## 📖 Overview
+
+On Day 64, I learned how Terraform manages infrastructure using its **State File** and why it is considered the backbone of Infrastructure as Code.
+
+I migrated my local state to an **Amazon S3 Remote Backend**, configured **DynamoDB State Locking**, imported existing AWS resources into Terraform, performed state operations, and explored how Terraform detects and resolves infrastructure drift.
+
+---
+
+## 🎯 Objectives
+
+* Understand Terraform State
+* Inspect State File
+* Configure Remote Backend
+* Enable State Locking
+* Import Existing Resources
+* Perform State Operations
+* Detect & Resolve State Drift
+
+---
+
+## 🛠️ Technologies Used
+
+* Terraform
+* AWS S3
+* Amazon DynamoDB
+* AWS EC2
+* Terraform State
+* AWS CLI
+
+---
+
+## 📂 Project Structure
+
+```text
+day-64/
+├── backend.tf
+├── main.tf
+├── variables.tf
+├── outputs.tf
+├── day-64-state-management.md
+├── images/
+│   ├── s3-backend.png
+│   ├── lock-error.png
+│   ├── terraform-import.png
+│   └── drift-detection.png
+└── .gitignore
+```
+
+---
+
+## 📚 What I Learned
+
+### ✅ Terraform State
+
+* terraform show
+* terraform state list
+* terraform state show
+
+### ✅ Remote Backend
+
+* Amazon S3 Backend
+* State Versioning
+* Encryption
+
+### ✅ State Locking
+
+* DynamoDB Lock Table
+* Lock IDs
+* force-unlock
+
+### ✅ Import Existing Resources
+
+* terraform import
+
+### ✅ State Operations
+
+* terraform state mv
+* terraform state rm
+
+### ✅ State Drift
+
+* Manual AWS changes
+* terraform plan
+* terraform apply
+* Drift reconciliation
+
+---
+
+## 🚀 Commands Used
+
+```bash
+terraform init
+terraform show
+terraform state list
+terraform state show
+terraform import
+terraform state mv
+terraform state rm
+terraform force-unlock
+terraform apply
+terraform plan
+terraform destroy
+```
+
+---
+
+## 🎯 Key Learnings
+
+* Terraform State is the source of truth.
+* Remote Backends improve collaboration.
+* DynamoDB prevents concurrent state modifications.
+* Existing infrastructure can be imported without recreation.
+* Terraform detects infrastructure drift automatically.
+* Proper state management is critical for production environments.
+
+---
+
+## 📸 Screenshots
+
+* Remote State in S3
+* DynamoDB Lock
+* Terraform Import
+* Drift Detection
+* Lock Error
+
+(Add screenshots inside the `images/` folder.)
+
+---
+
+## 🔗 GitHub Repository
+
+https://github.com/Apurvbajpai2531/TerraWeekTWS
+
+---
+
+⭐ Thanks to **TrainWithShubham** for another hands-on Terraform challenge!
