@@ -1,0 +1,155 @@
+# 🚀 TerraWeek Challenge – Day 63 | Variables, Outputs, Data Sources & Expressions
+
+## 📖 Overview
+
+Today I transformed my Terraform configuration from a hardcoded setup into a **dynamic, reusable, and environment-aware Infrastructure as Code project**.
+
+By introducing variables, outputs, locals, data sources, built-in functions, and conditional expressions, I created a Terraform configuration that can easily be reused across multiple environments without modifying the core infrastructure code.
+
+---
+
+## 🎯 Objectives
+
+* Replace hardcoded values with variables
+* Use multiple `.tfvars` files for different environments
+* Create reusable outputs
+* Fetch AWS resources dynamically using Data Sources
+* Use Locals for consistent naming and tagging
+* Practice Terraform functions and expressions
+
+---
+
+## 🛠️ Technologies Used
+
+* Terraform
+* AWS Provider
+* Amazon EC2
+* Amazon VPC
+* AWS Data Sources
+* Variables & Outputs
+* Terraform Console
+
+---
+
+## 📂 Project Structure
+
+```text
+day-63/
+├── providers.tf
+├── main.tf
+├── variables.tf
+├── outputs.tf
+├── terraform.tfvars
+├── prod.tfvars
+├── day-63-variables-outputs.md
+├── images/
+│   ├── terraform-outputs.png
+│   └── aws-console.png
+└── .gitignore
+```
+
+---
+
+## 📚 What I Learned
+
+### ✅ Variables
+
+* String
+* Number
+* Boolean
+* List
+* Map
+
+### ✅ Variable Files
+
+* terraform.tfvars
+* prod.tfvars
+* CLI Variables
+* Environment Variables
+
+### ✅ Outputs
+
+Generated outputs for:
+
+* VPC ID
+* Subnet ID
+* Security Group ID
+* EC2 Instance ID
+* Public IP
+* Public DNS
+
+### ✅ Data Sources
+
+Used AWS Data Sources to fetch:
+
+* Latest Amazon Linux 2 AMI
+* Available Availability Zones
+
+### ✅ Locals
+
+Created reusable values for:
+
+* Name Prefix
+* Common Tags
+
+### ✅ Terraform Functions
+
+Practiced:
+
+* upper()
+* join()
+* format()
+* lookup()
+* cidrsubnet()
+
+### ✅ Conditional Expressions
+
+Automatically selected instance type based on environment.
+
+---
+
+## 🚀 Terraform Commands
+
+```bash
+terraform init
+terraform fmt
+terraform validate
+terraform plan
+terraform apply
+terraform output
+terraform console
+terraform destroy
+```
+
+---
+
+## 🎯 Key Learnings
+
+* Eliminated all hardcoded values.
+* Learned Terraform variable precedence.
+* Used Data Sources for dynamic infrastructure.
+* Created reusable outputs.
+* Simplified tagging using Locals.
+* Used conditional expressions for different environments.
+* Improved Infrastructure as Code reusability.
+
+---
+
+## 📸 Screenshots
+
+* Terraform Apply Output
+* Terraform Outputs
+* AWS Console
+
+(Add screenshots inside the `images/` folder.)
+
+---
+
+## 🔗 GitHub Repository
+
+**Repository:**
+https://github.com/Apurvbajpai2531/TerraWeekTWS
+
+---
+
+⭐ Thanks to **TrainWithShubham** for another amazing Terraform learning challenge!
